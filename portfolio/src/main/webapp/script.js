@@ -12,9 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const icon = document.querySelector("#icon"); 
+icon.addEventListener('mouseover', e=> {
+    onButtonHover(); 
+})
+
+/**
+ * ADD COMMENT
+ */
+function onButtonHover() {
+    console.log(icon.dataset.message);
+}
+
 /**
  * Adds a random greeting to the page.
  */
+
 function addRandomGreeting() {
   const greetings =
       ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
