@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+let root = document.documentElement;
+
 const secretText = document.querySelector("#secret-text"); 
 const mePic = document.querySelector("#me-pic"); 
 const tomiePic = document.querySelector("#tomie-pic"); 
@@ -76,11 +78,13 @@ function activateEerieMode() {
     //profilePicture.src = "images/Tomie.jpg";
 
     document.body.style.backgroundColor = "black"; 
+    root.style.setProperty('--target-color', "red");
     mainHeading.classList.add("eerie-text"); 
     sections.forEach(section => {
         section.classList.add("eerie-text"); 
     });
     mainHeading.textContent = "Something Fun"; 
+    mainText.classList.add("eerie-text"); 
 }
 
 /**

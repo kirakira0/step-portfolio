@@ -1,3 +1,7 @@
+:root {
+    --target-color: red; 
+}
+
 body {
     cursor: none; 
 }
@@ -33,15 +37,6 @@ body {
   z-index: -1; 
   /* border: 1px green solid; */
 }
-
-/* #profile-picture {
-    display: flex; 
-    justify-content: center; 
-    border-radius: 50%;
-    z-index: -5; 
-    width: 15rem;
-    height: 15rem; 
-} */
 
 #greeting-container {
   margin-top: 20px;
@@ -99,6 +94,7 @@ body {
 }
 
 .eerie-text {
-    color: #d41200;
+    /* color: #b00f00; */
+    color: var(--target-color); 
     transition: all 5s ease; 
 }
