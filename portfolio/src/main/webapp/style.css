@@ -8,6 +8,13 @@ body {
   width: 650px;
 }
 
+#profile-picture {
+    display: flex; 
+    justify-content: center; 
+    border-radius: 50%;
+    z-index: -5; 
+}
+
 #greeting-container {
   margin-top: 20px;
 }
@@ -40,12 +47,12 @@ body {
     list-style:none; 
 }
 
-.NEWFUNC {
+.grow-cursor {
     transform: scale(2); 
     background: black; 
 }
 
-.hovered-text {
+.color-text {
     color:white 
 }
 
@@ -55,6 +62,5 @@ body {
 
 .fade-text-in {
     color: rgba(0, 0, 0, 1);
-    /* transition: all 0.3s ease;  */
     transition: all 1s ease; 
 }

@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//get special text 
+const secretText = document.querySelector("#secret-text");
+
+
 //fade in main text
 const mainText = document.querySelector(".main-text");
 window.addEventListener('load', e=> {
@@ -25,41 +29,42 @@ window.addEventListener('mousemove', e=> {
     mouseCursor.style.left = e.pageX + "px"; 
 })
 
-//get links
+/**
+ * Animates the mouse as it interacts with section headers. 
+ */
+secretMessages = ["...", "....", "Would you like to see something fun?"]; 
+var messageIndex = 0; 
+
+
 const sections = document.querySelectorAll(".sections li");
 sections.forEach(section => {
     section.addEventListener("mouseover", e=> {
-        mouseCursor.classList.add("NEWFUNC"); 
-        section.classList.add("hovered-text"); 
+        mouseCursor.classList.add("grow-cursor"); 
+        section.classList.add("color-text"); 
     }); 
     section.addEventListener("mouseleave", e=> {
-        mouseCursor.classList.remove("NEWFUNC");
-        section.classList.remove("hovered-text"); 
+        mouseCursor.classList.remove("grow-cursor");
+        section.classList.remove("color-text"); 
     }); 
     section.addEventListener("click", e=> {
-        mainText.textContent = section.dataset.message; 
-        //console.log(mainText.textContent); 
-        //console.log(section.dataset.message); 
+        console.log(section.id); 
+        if (section.id === "secret-text") {
+            mainText.textContent = secretMessages[messageIndex]; 
+            if (messageIndex < secretMessages.length) {
+                messageIndex += 1; 
+            }
+        }
+        else {
+            mainText.textContent = section.dataset.message; 
+        }
     })
 });
 
 
-// const icon = document.querySelector("#icon"); 
-// icon.addEventListener('mouseover', e=> {
-//     onButtonHover(); 
-// })
-
-/**
- * ADD COMMENT
- */
-function onButtonHover() {
-    console.log(icon.dataset.message);
-}
 
 /**
  * Adds a random greeting to the page.
  */
-
 function addRandomGreeting() {
   const greetings =
       ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
