@@ -13,6 +13,8 @@ body {
     justify-content: center; 
     border-radius: 50%;
     z-index: -5; 
+    width: 15rem;
+    height: 15rem; 
 }
 
 #greeting-container {
@@ -63,4 +65,14 @@ body {
 .fade-text-in {
     color: rgba(0, 0, 0, 1);
     transition: all 1s ease; 
+}
+
+.fade-image-out {
+    opacity: 0;
+    transition: all 1s ease; 
+}
+
+.eerie-text {
+    color: #8a0303;
+    transition: all 2s ease; 
 }

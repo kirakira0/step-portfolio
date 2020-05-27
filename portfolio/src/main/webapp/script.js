@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//get special text 
-const secretText = document.querySelector("#secret-text");
-
+const secretText = document.querySelector("#secret-text"); 
+const profilePicture = document.querySelector("#profile-picture"); 
+const mainHeading = document.querySelector("#main-heading"); 
 
 //fade in main text
 const mainText = document.querySelector(".main-text");
@@ -22,7 +22,10 @@ window.addEventListener('load', e=> {
     mainText.classList.add("fade-text-in"); 
 })
 
-//get mouse
+/**
+ * Keeps track of mouse and updates our special, circle pointer to
+ * follow cursor movement. 
+ */
 const mouseCursor = document.querySelector(".cursor");
 window.addEventListener('mousemove', e=> {
     mouseCursor.style.top = e.pageY + "px"; 
@@ -35,7 +38,6 @@ window.addEventListener('mousemove', e=> {
 secretMessages = ["...", "....", "Would you like to see something fun?"]; 
 var messageIndex = 0; 
 
-
 const sections = document.querySelectorAll(".sections li");
 sections.forEach(section => {
     section.addEventListener("mouseover", e=> {
@@ -47,11 +49,15 @@ sections.forEach(section => {
         section.classList.remove("color-text"); 
     }); 
     section.addEventListener("click", e=> {
-        console.log(section.id); 
+        console.log(messageIndex); 
         if (section.id === "secret-text") {
             mainText.textContent = secretMessages[messageIndex]; 
             if (messageIndex < secretMessages.length) {
                 messageIndex += 1; 
+            }
+            else {
+                profilePicture.classList.add("fade-image-out"); 
+                activateEerieMode(); 
             }
         }
         else {
@@ -60,19 +66,32 @@ sections.forEach(section => {
     })
 });
 
-
+/**
+ * Changes the theme of the page 
+ */
+function activateEerieMode() {
+    console.log("eerie mode activated"); 
+    profilePicture.classList.remove("fade-image-out"); 
+    profilePicture.src = "images/Tomie.jpg";
+    document.body.style.backgroundColor = "black"; 
+    mainHeading.classList.add("eerie-text"); 
+    sections.forEach(section => {
+        section.classList.add("eerie-text"); 
+    });
+    mainHeading.textContent = "Something Fun"; 
+}
 
 /**
  * Adds a random greeting to the page.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+// function addRandomGreeting() {
+//   const greetings =
+//       ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+//   // Pick a random greeting.
+//   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
-}
+//   // Add it to the page.
+//   const greetingContainer = document.getElementById('greeting-container');
+//   greetingContainer.innerText = greeting;
+// }
