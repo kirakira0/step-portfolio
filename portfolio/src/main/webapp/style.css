@@ -49,5 +49,12 @@ body {
     color:white 
 }
 
+.main-text {
+    color: rgba(0, 0, 0, 0); 
+}
 
-
+.fade-text-in {
+    color: rgba(0, 0, 0, 1);
+    /* transition: all 0.3s ease;  */
+    transition: all 1s ease; 
+}

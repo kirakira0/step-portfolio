@@ -12,6 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//fade in main text
+const mainText = document.querySelector(".main-text");
+window.addEventListener('load', e=> {
+    mainText.classList.add("fade-text-in"); 
+})
+
 //get mouse
 const mouseCursor = document.querySelector(".cursor");
 window.addEventListener('mousemove', e=> {
@@ -30,13 +36,18 @@ sections.forEach(section => {
         mouseCursor.classList.remove("NEWFUNC");
         section.classList.remove("hovered-text"); 
     }); 
+    section.addEventListener("click", e=> {
+        mainText.textContent = section.dataset.message; 
+        //console.log(mainText.textContent); 
+        //console.log(section.dataset.message); 
+    })
 });
 
 
-const icon = document.querySelector("#icon"); 
-icon.addEventListener('mouseover', e=> {
-    onButtonHover(); 
-})
+// const icon = document.querySelector("#icon"); 
+// icon.addEventListener('mouseover', e=> {
+//     onButtonHover(); 
+// })
 
 /**
  * ADD COMMENT
