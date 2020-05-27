@@ -12,6 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//get mouse
+const mouseCursor = document.querySelector(".cursor");
+window.addEventListener('mousemove', e=> {
+    mouseCursor.style.top = e.pageY + "px"; 
+    mouseCursor.style.left = e.pageX + "px"; 
+})
+
+//get links
+const sections = document.querySelectorAll(".sections li");
+sections.forEach(section => {
+    section.addEventListener("mouseover", e=> {
+        mouseCursor.classList.add("NEWFUNC"); 
+        section.classList.add("hovered-text"); 
+    }); 
+    section.addEventListener("mouseleave", e=> {
+        mouseCursor.classList.remove("NEWFUNC");
+        section.classList.remove("hovered-text"); 
+    }); 
+});
+
+
 const icon = document.querySelector("#icon"); 
 icon.addEventListener('mouseover', e=> {
     onButtonHover(); 

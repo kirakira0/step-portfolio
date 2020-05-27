@@ -1,3 +1,7 @@
+body {
+    cursor: none; 
+}
+
 #content {
   margin-left: auto;
   margin-right: auto;
@@ -13,3 +17,37 @@
     height: 50px;
     background: aqua; 
 }
+
+.cursor {
+    width: 2rem; 
+    height: 2rem;
+    border: 2px solid black; 
+    border-radius: 50%; 
+    position: absolute; 
+    transform: translate(-50%,-50%); 
+    pointer-events: none; 
+    transition: all 0.3s ease; 
+    transition-property: background, transform;
+    transform-origin: 100% 100%; 
+    z-index: -1;  
+}
+
+.sections {
+    padding: 1rem; 
+    width: 80%; 
+    display: flex; 
+    justify-content: space-between;
+    list-style:none; 
+}
+
+.NEWFUNC {
+    transform: scale(2); 
+    background: black; 
+}
+
+.hovered-text {
+    color:white 
+}
+
+
+
