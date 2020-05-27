@@ -13,7 +13,8 @@
 // limitations under the License.
 
 const secretText = document.querySelector("#secret-text"); 
-const profilePicture = document.querySelector("#profile-picture"); 
+const mePic = document.querySelector("#me-pic"); 
+const tomiePic = document.querySelector("#tomie-pic"); 
 const mainHeading = document.querySelector("#main-heading"); 
 
 //fade in main text
@@ -56,7 +57,7 @@ sections.forEach(section => {
                 messageIndex += 1; 
             }
             else {
-                profilePicture.classList.add("fade-image-out"); 
+                // profilePicture.classList.add("fade-image-out"); 
                 activateEerieMode(); 
             }
         }
@@ -71,8 +72,9 @@ sections.forEach(section => {
  */
 function activateEerieMode() {
     console.log("eerie mode activated"); 
-    profilePicture.classList.remove("fade-image-out"); 
-    profilePicture.src = "images/Tomie.jpg";
+    mePic.classList.add("fade-image-out"); 
+    //profilePicture.src = "images/Tomie.jpg";
+
     document.body.style.backgroundColor = "black"; 
     mainHeading.classList.add("eerie-text"); 
     sections.forEach(section => {

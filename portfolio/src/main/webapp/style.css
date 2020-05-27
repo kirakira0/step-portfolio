@@ -8,14 +8,40 @@ body {
   width: 650px;
 }
 
-#profile-picture {
+#images-parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+#me-pic {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 15rem;
+  height: 15rem; 
+  border-radius: 50%;
+  z-index: 1; 
+  /* border: 1px red solid; */
+}
+#tomie-pic {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15rem;
+  height: 15rem; 
+  border-radius: 50%;
+  z-index: -1; 
+  /* border: 1px green solid; */
+}
+
+/* #profile-picture {
     display: flex; 
     justify-content: center; 
     border-radius: 50%;
     z-index: -5; 
     width: 15rem;
     height: 15rem; 
-}
+} */
 
 #greeting-container {
   margin-top: 20px;
@@ -73,6 +99,6 @@ body {
 }
 
 .eerie-text {
-    color: #8a0303;
-    transition: all 2s ease; 
+    color: #d41200;
+    transition: all 5s ease; 
 }
