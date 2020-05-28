@@ -1,9 +1,14 @@
 :root {
     --target-color: red; 
+    --circle-cursor-color: black; 
+    --highlighted-text-color: white;
+    --extra-content-opacity: 0;  
 }
 
-body {
+html, body {
     cursor: none; 
+    margin: 0;
+    height: 100%;
 }
 
 #content {
@@ -51,7 +56,7 @@ body {
 .cursor {
     width: 2rem; 
     height: 2rem;
-    border: 2px solid black; 
+    border: 2px solid var(--circle-cursor-color); 
     border-radius: 50%; 
     position: absolute; 
     transform: translate(-50%,-50%); 
@@ -72,11 +77,11 @@ body {
 
 .grow-cursor {
     transform: scale(2); 
-    background: black; 
+    background: var(--circle-cursor-color); 
 }
 
 .color-text {
-    color:white 
+    color: var(--highlighted-text-color);  
 }
 
 .main-text {
@@ -93,22 +98,31 @@ body {
     transition: all 5s ease; 
 }
 
-.eerie-text {
+.eerie-text{
     /* color: #b00f00; */
     color: var(--target-color); 
     transition: all 2s ease; 
 }
 
 #extra-content {
+ /* TODO: FIGURE OUT WHY Z-INDEX DOESN'T SEEM TO BE CHANGING THE DEPTH */
+  z-index: -1; 
   margin-left: auto;
   margin-right: auto;
-  width: 650px;  
+  width: 650px; 
+  opacity: 0; 
 }
 
+.change-extra-content-opacity {
+    opacity: 1;  
+    transition: all 2s ease; 
+    color: white; 
+}  
+
 #movie-recommendation {
+    margin: 10; 
     display: flex; 
     flex-direction: row; 
-    align-self: stretch; 
-    align-items: space-between;
-    /* align-content: space-between;  */
+    justify-content: space-between; 
+    background-color: #1c0000;
 }
