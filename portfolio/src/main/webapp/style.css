@@ -90,11 +90,25 @@ body {
 
 .fade-image-out {
     opacity: 0;
-    transition: all 1s ease; 
+    transition: all 5s ease; 
 }
 
 .eerie-text {
     /* color: #b00f00; */
     color: var(--target-color); 
-    transition: all 5s ease; 
+    transition: all 2s ease; 
+}
+
+#extra-content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 650px;  
+}
+
+#movie-recommendation {
+    display: flex; 
+    flex-direction: row; 
+    align-self: stretch; 
+    align-items: space-between;
+    /* align-content: space-between;  */
 }

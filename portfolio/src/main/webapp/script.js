@@ -21,7 +21,7 @@ const mainHeading = document.querySelector("#main-heading");
 
 //fade in main text
 const mainText = document.querySelector(".main-text");
-window.addEventListener('load', e=> {
+window.addEventListener('load', e => {
     mainText.classList.add("fade-text-in"); 
 })
 
@@ -29,44 +29,50 @@ window.addEventListener('load', e=> {
  * Keeps track of mouse and updates our special, circle pointer to
  * follow cursor movement. 
  */
-const mouseCursor = document.querySelector(".cursor");
-window.addEventListener('mousemove', e=> {
-    mouseCursor.style.top = e.pageY + "px"; 
-    mouseCursor.style.left = e.pageX + "px"; 
+const circleAroundMouse = document.querySelector(".cursor");
+window.addEventListener('mousemove', e => {
+    circleAroundMouse.style.top = e.pageY + "px"; 
+    circleAroundMouse.style.left = e.pageX + "px"; 
 })
+
+const secretMessages = ["...", "....", "Would you like to see something fun?"]; 
+let messageIndex = 0; 
 
 /**
  * Animates the mouse as it interacts with section headers. 
  */
-secretMessages = ["...", "....", "Would you like to see something fun?"]; 
-var messageIndex = 0; 
 
 const sections = document.querySelectorAll(".sections li");
 sections.forEach(section => {
-    section.addEventListener("mouseover", e=> {
-        mouseCursor.classList.add("grow-cursor"); 
+    section.addEventListener("mouseover", e => {
+        circleAroundMouse.classList.add("grow-cursor"); 
         section.classList.add("color-text"); 
     }); 
-    section.addEventListener("mouseleave", e=> {
-        mouseCursor.classList.remove("grow-cursor");
+    section.addEventListener("mouseleave", e => {
+        circleAroundMouse.classList.remove("grow-cursor");
         section.classList.remove("color-text"); 
     }); 
-    section.addEventListener("click", e=> {
+    section.addEventListener("click", e => {
         console.log(messageIndex); 
         if (section.id === "secret-text") {
             mainText.textContent = secretMessages[messageIndex]; 
             if (messageIndex < secretMessages.length) {
                 messageIndex += 1; 
-            }
-            else {
+            } else {
                 // profilePicture.classList.add("fade-image-out"); 
                 activateEerieMode(); 
             }
-        }
-        else {
+        } else {
             mainText.textContent = section.dataset.message; 
         }
     })
+});
+
+document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 39) {
+        console.log("right key pressed");
+        activateEerieMode(); 
+    }
 });
 
 /**
@@ -75,8 +81,6 @@ sections.forEach(section => {
 function activateEerieMode() {
     console.log("eerie mode activated"); 
     mePic.classList.add("fade-image-out"); 
-    //profilePicture.src = "images/Tomie.jpg";
-
     document.body.style.backgroundColor = "black"; 
     root.style.setProperty('--target-color', "red");
     mainHeading.classList.add("eerie-text"); 
@@ -88,16 +92,19 @@ function activateEerieMode() {
 }
 
 /**
- * Adds a random greeting to the page.
+ * Recommends a movie based on dropdown input 
  */
-// function addRandomGreeting() {
-//   const greetings =
-//       ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+const dropdown = document.querySelector("#subgenres"); 
+let userSelectedValue; 
 
-//   // Pick a random greeting.
-//   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+spnMovies = ["Hereditary", "It Follows", "The Exorcist", "Ju-On: The Grudge", "Ringu"]
+nonSpnMovies = ["Midsommar", "The Shining", "Hush", "The Strangers", "Orphan"]
 
-//   // Add it to the page.
-//   const greetingContainer = document.getElementById('greeting-container');
-//   greetingContainer.innerText = greeting;
-// }
+function recommendMovie() {
+    userSelectedValue = dropdown.options[dropdown.selectedIndex].value; 
+    if (userSelectedValue === "spn") {
+        console.log(spnMovies[Math.floor(Math.random() * spnMovies.length)]); 
+    } else {
+        console.log(nonSpnMovies[Math.floor(Math.random() * nonSpnMovies.length)]); 
+    }
+}
