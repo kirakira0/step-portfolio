@@ -14,22 +14,6 @@
 
 let eerieModeOn = false; 
 
-/**
- * Shows and hides "Eerie Mode" elements
- */
-const extraContent = document.querySelector("#extra-content");
-function extrasAreVisible(visible) {
-    if (visible) {
-        extraContent.style.display = "block"; 
-        extraContent.style.opacity = "1";  
-        //TODO: fix below line, which doesn't transition the opacity
-        extraContent.classList.add("change-extra-content-opacity"); 
-
-    } else {
-        extraContent.style.display = "none"; 
-    }
-}
-
 const root = document.documentElement;
 
 const secretText = document.querySelector("#secret-text"); 
@@ -41,7 +25,9 @@ const mainHeading = document.querySelector("#main-heading");
 const mainText = document.querySelector(".main-text");
 window.addEventListener('load', e => {
     mainText.classList.add("fade-text-in"); 
-    extrasAreVisible(false); 
+    extraContent.style.display = "none"; 
+
+    //extrasAreVisible(false); 
 })
 
 /**
@@ -56,6 +42,51 @@ window.addEventListener('mousemove', e => {
 
 const secretMessages = ["...", "....", "Would you like to see something fun?"]; 
 let messageIndex = 0; 
+
+/**
+ * Changes the theme of the page 
+ */
+const extraContent = document.querySelector("#extra-content");
+function activateEerieMode() {
+    eerieModeOn = true; 
+    mePic.classList.add("fade-image-out"); 
+    document.body.style.backgroundColor = "black"; 
+    root.style.setProperty('--target-color', "red");
+    root.style.setProperty('--circle-cursor-color', "red"); 
+    root.style.setProperty('--highlighted-text-color', "white"); 
+    mainHeading.classList.add("eerie-text"); 
+    sections.forEach(section => {
+        section.classList.add("eerie-text"); 
+    });
+    mainHeading.textContent = "Something Fun"; 
+    mainText.textContent = mainText.dataset.reversed; 
+    mainText.classList.add("eerie-text"); 
+    //the following lines display extra, EM-exclusive features 
+    extraContent.style.display = "block"; 
+    extraContent.style.opacity = "1";  
+    //TODO: fix below line, which doesn't transition the opacity
+    extraContent.classList.add("change-extra-content-opacity"); 
+    secretText.textContent = "Back"; 
+}
+
+function deactivateEerieMode() {
+    eerieModeOn = false; 
+    mePic.classList.remove("fade-image-out"); 
+    document.body.style.backgroundColor = "white"; 
+    root.style.setProperty('--target-color', "black");
+    root.style.setProperty('--circle-cursor-color', "black"); 
+    root.style.setProperty('--highlighted-text-color', "white"); 
+    mainHeading.classList.add("eerie-text"); 
+    sections.forEach(section => {
+         section.classList.remove("eerie-text"); 
+    });
+    mainHeading.textContent = "Kira's Profile"; 
+    mainText.textContent = "Wasn't that fun?"; 
+    mainText.classList.remove("eerie-text"); 
+    secretText.textContent = "???"; 
+    //the following lines disable extra, EM-exclusive features 
+    extraContent.style.display = "none"; 
+}
 
 /**
  * Animates the mouse as it interacts with section headers. 
@@ -78,7 +109,8 @@ sections.forEach(section => {
             if (messageIndex < secretMessages.length) {
                 messageIndex += 1; 
             } else {
-                activateEerieMode(); 
+                if (!eerieModeOn) { activateEerieMode(); }
+                else {deactivateEerieMode(); }
             }
         } else {
             mainText.textContent = section.dataset.message; 
@@ -90,28 +122,10 @@ document.addEventListener('keydown', function(event) {
     if(event.keyCode == 39) {
         activateEerieMode(); 
     }
+    if(event.keyCode == 37) {
+        deactivateEerieMode(); 
+    }
 });
-
-/**
- * Changes the theme of the page 
- */
-function activateEerieMode() {
-    eerieModeOn = true; 
-    mePic.classList.add("fade-image-out"); 
-    document.body.style.backgroundColor = "black"; 
-    root.style.setProperty('--target-color', "red");
-    root.style.setProperty('--circle-cursor-color', "red"); 
-    root.style.setProperty('--highlighted-text-color', "white"); 
-    mainHeading.classList.add("eerie-text"); 
-    sections.forEach(section => {
-        section.classList.add("eerie-text"); 
-    });
-    mainHeading.textContent = "Something Fun"; 
-    mainText.textContent = mainText.dataset.reversed; 
-    mainText.classList.add("eerie-text"); 
-    extrasAreVisible(true); 
-}
-
 
 /**
  * Recommends a movie based on dropdown input 
@@ -131,3 +145,18 @@ function recommendMovie() {
         result.textContent = nonSpnMovies[Math.floor(Math.random() * nonSpnMovies.length)]; 
     }
 }
+
+/**
+ * Change cursor and text when cursor is over "Recommend" text 
+ */
+const recommend = document.querySelector("#recommend");
+recommend.addEventListener("mouseover", e => {
+    circleAroundMouse.classList.add("grow-cursor");
+    //TODO: GET BELOW LINE WORKING FOR NICE FADE EFFECT
+    // recommend.classList.add("color-text"); 
+    recommend.style.color = "white";   //placeholder
+});
+recommend.addEventListener("mouseleave", e => {
+    circleAroundMouse.classList.remove("grow-cursor");
+    recommend.style.color = "red";   //placeholder
+});
