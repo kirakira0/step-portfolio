@@ -38,7 +38,7 @@ window.addEventListener('mousemove', e => {
     circleAroundMouse.style.left = e.pageX + "px"; 
 })
 
-const SECRETMESSAGES = ["...", "....", "Would you like to see something fun?"]; 
+const SECRETMESSAGES = ["Click again to see something fun ..."]; 
 let messageIndex = 0; 
 
 /**
