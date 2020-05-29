@@ -106,19 +106,16 @@ html, body {
 }
 
 #extra-content {
- /* TODO: FIGURE OUT WHY Z-INDEX DOESN'T SEEM TO BE CHANGING THE DEPTH */ 
-  /* z-index: -1;  */
   margin-left: auto;
   margin-right: auto;
   width: 650px; 
   opacity: 0; 
 }
 
-.more-opaque-extra-content {
-    opacity: 1;  
+#extra-content {
+    opacity: 0; 
     transition: all 2s ease; 
-    color: white; 
-}  
+}
 
 #movie-recommendation {
     display: flex; 
@@ -133,6 +130,10 @@ html, body {
     color:red; 
 }
 
+#filler-text {
+    color:white; 
+}
+
 #subgenres {
     color: white; 
     background-color: black; 
@@ -141,13 +142,14 @@ html, body {
 #result-parent {
     width: 10rem; 
     height: 3rem; 
-    background-color: #8a0303;
     text-align: center; 
 }
 
+#result {
+    color:white; 
+}
+
 #creepy-images {
-    /* position: absolute;
-    z-index: -5;   */
     display: flex;
     flex-direction: row; 
     justify-content: space-evenly; 
@@ -160,7 +162,6 @@ html, body {
   width: 8rem;
   height: 8rem; 
   border-radius: 50%;
-  /* padding: 2rem; */
   opacity: 0.3; 
   transition: all 1s ease;  
 }

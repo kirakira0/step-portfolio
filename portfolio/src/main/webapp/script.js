@@ -57,14 +57,15 @@ function activateEerieMode() {
         section.classList.add("eerie-text"); 
     });
     mainHeading.textContent = "Something Fun"; 
-    // mainText.textContent = mainText.textContent.split("").reverse().join(""); //Reverse the main info string
     mainText.textContent = mainText.dataset.reversed; 
     mainText.classList.add("eerie-text"); 
-    //the following lines display extra, EM-exclusive features 
+    //the following lines display extra, eerie-mode-exclusive features 
     extraContent.style.display = "block"; 
-    extraContent.style.opacity = "1";  
-    //TODO: fix below line, which doesn't transition the opacity
-    extraContent.classList.add("more-opaque-extra-content"); 
+    //transition the extra content in
+    extraContent.style.opacity = 0;
+    setTimeout(() => {
+        extraContent.style.opacity = 1;
+    }, this.animationDelay + 20); 
     secretText.textContent = "Back"; 
 }
 
@@ -126,15 +127,6 @@ sections.forEach(section => {
     })
 });
 
-document.addEventListener('keydown', function(event) {
-    if(event.keyCode == 39) { //RIGHT ARROW KEY
-        activateEerieMode(); 
-    }
-    if(event.keyCode == 37) { //LEFT ARROW KEY
-        deactivateEerieMode(); 
-    }
-});
-
 /**
  * Recommends a movie based on dropdown input 
  */
@@ -161,11 +153,9 @@ function recommendMovie() {
 const recommend = document.querySelector("#recommend");
 recommend.addEventListener("mouseover", e => {
     circleAroundMouse.classList.add("grow-cursor");
-    //TODO: GET BELOW LINE WORKING FOR NICE FADE EFFECT
-    // recommend.classList.add("color-text"); 
-    recommend.style.color = "white";   //placeholder
+    recommend.style.color = "white";   
 });
 recommend.addEventListener("mouseleave", e => {
     circleAroundMouse.classList.remove("grow-cursor");
-    recommend.style.color = "red";   //placeholder
+    recommend.style.color = "red";  
 });
