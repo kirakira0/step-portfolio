@@ -57,6 +57,7 @@ function activateEerieMode() {
         section.classList.add("eerie-text"); 
     });
     mainHeading.textContent = "Something Fun"; 
+    // mainText.textContent = mainText.textContent.split("").reverse().join(""); //Reverse the main info string
     mainText.textContent = mainText.dataset.reversed; 
     mainText.classList.add("eerie-text"); 
     //the following lines display extra, EM-exclusive features 

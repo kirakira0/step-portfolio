@@ -18,38 +18,29 @@ html, body {
 }
 
 #images-parent {
-  position: relative;
-  top: 0;
-  left: 0;
+  padding: 2rem; 
+  display:flex; 
+  justify-content: center; 
 }
+
 #me-pic {
+  display:flex;
+  justify-content: center; 
   position: relative;
-  top: 2rem;
-  left: 0;
   width: 15rem;
   height: 15rem; 
   border-radius: 50%;
   z-index: 1; 
-  /* border: 1px red solid; */
 }
+
 #tomie-pic {
+  display:flex;
+  justify-content: center; 
   position: absolute;
-  top: 2rem;
-  left: 0;
   width: 15rem;
   height: 15rem; 
   border-radius: 50%;
   z-index: -1; 
-}
-
-#greeting-container {
-  margin-top: 20px;
-}
-
-#icon {
-    width: 100px;
-    height: 50px;
-    background: aqua; 
 }
 
 .cursor {
@@ -66,11 +57,17 @@ html, body {
     z-index: -1;  
 }
 
+#sections-parent {
+    display: flex;
+    justify-content: center; 
+}
+
 .sections {
     padding: 1rem; 
     width: 80%; 
     display: flex; 
     justify-content: space-between;
+    /* justify-content: center;  */
     list-style:none; 
 }
 
@@ -83,8 +80,14 @@ html, body {
     color: var(--highlighted-text-color);  
 }
 
+#main-heading {
+    text-align:center; 
+}
+
 .main-text {
+    height: 5rem; 
     color: rgba(0, 0, 0, 0); 
+    text-align: justify; 
 }
 
 .fade-text-in {
@@ -94,18 +97,17 @@ html, body {
 
 .fade-image-out {
     opacity: 0;
-    transition: all 5s ease; 
+    transition: all 3s ease; 
 }
 
 .eerie-text{
-    /* color: #b00f00; */
     color: var(--target-color); 
     transition: all 2s ease; 
 }
 
 #extra-content {
  /* TODO: FIGURE OUT WHY Z-INDEX DOESN'T SEEM TO BE CHANGING THE DEPTH */ 
-  z-index: -1; 
+  /* z-index: -1;  */
   margin-left: auto;
   margin-right: auto;
   width: 650px; 
@@ -123,8 +125,8 @@ html, body {
     flex-direction: row; 
     justify-content: space-evenly; 
     align-content: center; 
-    width: 80%; 
-    margin-top: 50px; 
+    padding-top: 2rem; 
+    padding-bottom: 2rem; 
 }
 
 #recommend {
@@ -144,20 +146,21 @@ html, body {
 }
 
 #creepy-images {
-    position: absolute;
-    z-index: -5;  
+    /* position: absolute;
+    z-index: -5;   */
     display: flex;
     flex-direction: row; 
     justify-content: space-evenly; 
     align-content: center; 
-    margin: 50px; 
-}
+    padding-top: 2rem; 
+    padding-bottom: 2rem; 
+} 
 
 .ito-images {
   width: 8rem;
   height: 8rem; 
   border-radius: 50%;
-  padding: 2rem;
+  /* padding: 2rem; */
   opacity: 0.3; 
   transition: all 1s ease;  
 }
