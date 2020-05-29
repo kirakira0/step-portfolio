@@ -26,8 +26,6 @@ const mainText = document.querySelector(".main-text");
 window.addEventListener('load', e => {
     mainText.classList.add("fade-text-in"); 
     extraContent.style.display = "none"; 
-
-    //extrasAreVisible(false); 
 })
 
 /**
