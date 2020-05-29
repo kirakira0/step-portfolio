@@ -38,7 +38,7 @@ window.addEventListener('mousemove', e => {
     circleAroundMouse.style.left = e.pageX + "px"; 
 })
 
-const secretMessages = ["...", "....", "Would you like to see something fun?"]; 
+const SECRETMESSAGES = ["...", "....", "Would you like to see something fun?"]; 
 let messageIndex = 0; 
 
 /**
@@ -63,7 +63,7 @@ function activateEerieMode() {
     extraContent.style.display = "block"; 
     extraContent.style.opacity = "1";  
     //TODO: fix below line, which doesn't transition the opacity
-    extraContent.classList.add("change-extra-content-opacity"); 
+    extraContent.classList.add("more-opaque-extra-content"); 
     secretText.textContent = "Back"; 
 }
 
@@ -78,11 +78,11 @@ function deactivateEerieMode() {
     sections.forEach(section => {
          section.classList.remove("eerie-text"); 
     });
-    mainHeading.textContent = "Kira's Profile"; 
+    mainHeading.textContent = "Kira Toal's Profile"; 
     mainText.textContent = "Wasn't that fun?"; 
     mainText.classList.remove("eerie-text"); 
     secretText.textContent = "???"; 
-    //the following lines disable extra, EM-exclusive features 
+    //the following lines disable extra,  eerie-mode-exclusive features 
     extraContent.style.display = "none"; 
 }
 
@@ -103,24 +103,33 @@ sections.forEach(section => {
     }); 
     section.addEventListener("click", e => {
         if (section.id === "secret-text") {
-            mainText.textContent = secretMessages[messageIndex]; 
-            if (messageIndex < secretMessages.length) {
+            mainText.textContent = SECRETMESSAGES[messageIndex]; 
+            if (messageIndex < SECRETMESSAGES.length) {
                 messageIndex += 1; 
             } else {
                 if (!eerieModeOn) { activateEerieMode(); }
                 else {deactivateEerieMode(); }
             }
         } else {
-            mainText.textContent = section.dataset.message; 
+            if (eerieModeOn) {
+                //reverse the text 
+                let revTextArray = section.dataset.message.split(""); 
+                revTextArray = revTextArray.reverse(); 
+                let revTextString = revTextArray.join(""); 
+                mainText.textContent = revTextString;
+            }
+            else {
+                mainText.textContent = section.dataset.message;
+            } 
         }
     })
 });
 
 document.addEventListener('keydown', function(event) {
-    if(event.keyCode == 39) {
+    if(event.keyCode == 39) { //RIGHT ARROW KEY
         activateEerieMode(); 
     }
-    if(event.keyCode == 37) {
+    if(event.keyCode == 37) { //LEFT ARROW KEY
         deactivateEerieMode(); 
     }
 });
@@ -128,19 +137,20 @@ document.addEventListener('keydown', function(event) {
 /**
  * Recommends a movie based on dropdown input 
  */
+
+const SPN = ["Hereditary", "It Follows", "The Exorcist", "Ju-On: The Grudge", "Ringu"]
+const NONSPN = ["Midsommar", "The Shining", "Hush", "The Strangers", "Orphan"]
+
 const dropdown = document.querySelector("#subgenres"); 
 let userSelectedValue; 
-
-spnMovies = ["Hereditary", "It Follows", "The Exorcist", "Ju-On: The Grudge", "Ringu"]
-nonSpnMovies = ["Midsommar", "The Shining", "Hush", "The Strangers", "Orphan"]
-
 const result = document.querySelector("#result");
 function recommendMovie() {
-    userSelectedValue = dropdown.options[dropdown.selectedIndex].value; 
+    userSelectedValue = dropdown.options[dropdown.selectedIndex].value;  
     if (userSelectedValue === "spn") {
-        result.textContent = spnMovies[Math.floor(Math.random() * spnMovies.length)]; 
+        result.textContent = SPN[Math.floor(Math.random() * SPN.length)]; 
+
     } else { 
-        result.textContent = nonSpnMovies[Math.floor(Math.random() * nonSpnMovies.length)]; 
+        result.textContent = NONSPN[Math.floor(Math.random() * NONSPN.length)]; 
     }
 }
 

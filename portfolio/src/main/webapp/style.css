@@ -113,7 +113,7 @@ html, body {
   opacity: 0; 
 }
 
-.change-extra-content-opacity {
+.more-opaque-extra-content {
     opacity: 1;  
     transition: all 2s ease; 
     color: white; 
