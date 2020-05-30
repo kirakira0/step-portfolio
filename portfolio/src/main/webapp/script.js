@@ -42,9 +42,63 @@ const SECRET_MESSAGES = ["Keep clicking to see ...", "...something...", "fun."];
 let messageIndex = 0; 
 
 /**
+ * Animates the mouse as it interacts with section headers. 
+ */
+const sections = document.querySelectorAll(".sections li");
+sections.forEach(section => {
+    section.addEventListener("mouseover", e => {
+        circleAroundMouse.classList.add("grow-cursor");
+        if (eerieModeOn) { section.classList.remove("eerie-text"); } 
+        section.classList.add("color-text");  
+    }); 
+    section.addEventListener("mouseleave", e => {
+        circleAroundMouse.classList.remove("grow-cursor");
+        if (eerieModeOn) { section.classList.add("eerie-text"); } 
+        section.classList.remove("color-text"); 
+    }); 
+    section.addEventListener("click", e => {
+        if (section.id === "secret-text") {
+            mainText.textContent = SECRET_MESSAGES[messageIndex]; 
+            if (messageIndex < SECRET_MESSAGES.length) {
+                messageIndex += 1; 
+            } else {
+                if (!eerieModeOn) { activateEerieMode(); }
+                else {deactivateEerieMode(); }
+            }
+        } else {
+            if (eerieModeOn) {
+                //reverse the text 
+                let revTextArray = section.dataset.message.split(""); 
+                revTextArray = revTextArray.reverse(); 
+                let revTextString = revTextArray.join(""); 
+                mainText.textContent = revTextString;
+            }
+            else {
+                mainText.textContent = section.dataset.message;
+            } 
+        }
+    })
+});
+
+/**
+ * Change cursor and text when cursor is over "Recommend" text 
+ */
+const recommend = document.querySelector("#recommend");
+recommend.addEventListener("mouseover", e => {
+    circleAroundMouse.classList.add("grow-cursor");
+    recommend.style.color = "white";   
+});
+recommend.addEventListener("mouseleave", e => {
+    circleAroundMouse.classList.remove("grow-cursor");
+    recommend.style.color = "red";  
+});
+
+
+/**
  * Changes the theme of the page 
  */
 const extraContent = document.querySelector("#extra-content");
+
 function activateEerieMode() {
     eerieModeOn = true; 
     mePic.classList.add("fade-image-out"); 
@@ -89,52 +143,12 @@ function deactivateEerieMode() {
 }
 
 /**
- * Animates the mouse as it interacts with section headers. 
- */
-const sections = document.querySelectorAll(".sections li");
-sections.forEach(section => {
-    section.addEventListener("mouseover", e => {
-        circleAroundMouse.classList.add("grow-cursor");
-        if (eerieModeOn) { section.classList.remove("eerie-text"); } 
-        section.classList.add("color-text");  
-    }); 
-    section.addEventListener("mouseleave", e => {
-        circleAroundMouse.classList.remove("grow-cursor");
-        if (eerieModeOn) { section.classList.add("eerie-text"); } 
-        section.classList.remove("color-text"); 
-    }); 
-    section.addEventListener("click", e => {
-        if (section.id === "secret-text") {
-            mainText.textContent = SECRET_MESSAGES[messageIndex]; 
-            if (messageIndex < SECRET_MESSAGES.length) {
-                messageIndex += 1; 
-            } else {
-                if (!eerieModeOn) { activateEerieMode(); }
-                else {deactivateEerieMode(); }
-            }
-        } else {
-            if (eerieModeOn) {
-                //reverse the text 
-                let revTextArray = section.dataset.message.split(""); 
-                revTextArray = revTextArray.reverse(); 
-                let revTextString = revTextArray.join(""); 
-                mainText.textContent = revTextString;
-            }
-            else {
-                mainText.textContent = section.dataset.message;
-            } 
-        }
-    })
-});
-
-/**
  * Recommends a movie based on dropdown input 
  */
 
-const SPN = ["Hereditary", "It Follows", "The Exorcist", "Ju-On: The Grudge", "Ringu"]
-const NONSPN = ["Midsommar", "The Shining", "Hush", "The Strangers", "Orphan"]
-
 function recommendMovie() {
+    const SPN = ["Hereditary", "It Follows", "The Exorcist", "Ju-On: The Grudge", "Ringu"]
+    const NONSPN = ["Midsommar", "The Shining", "Hush", "The Strangers", "Orphan"]
     const dropdown = document.querySelector("#subgenres"); 
     let userSelectedValue; 
     const result = document.querySelector("#result");
@@ -146,16 +160,3 @@ function recommendMovie() {
         result.textContent = NONSPN[Math.floor(Math.random() * NONSPN.length)]; 
     }
 }
-
-/**
- * Change cursor and text when cursor is over "Recommend" text 
- */
-const recommend = document.querySelector("#recommend");
-recommend.addEventListener("mouseover", e => {
-    circleAroundMouse.classList.add("grow-cursor");
-    recommend.style.color = "white";   
-});
-recommend.addEventListener("mouseleave", e => {
-    circleAroundMouse.classList.remove("grow-cursor");
-    recommend.style.color = "red";  
-});
