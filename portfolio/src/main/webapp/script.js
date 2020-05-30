@@ -38,7 +38,7 @@ window.addEventListener('mousemove', e => {
     circleAroundMouse.style.left = e.pageX + "px"; 
 })
 
-const SECRETMESSAGES = ["Click again to see something fun ..."]; 
+const SECRET_MESSAGES = ["Keep clicking to see ...", "...something...", "fun."]; 
 let messageIndex = 0; 
 
 /**
@@ -105,8 +105,8 @@ sections.forEach(section => {
     }); 
     section.addEventListener("click", e => {
         if (section.id === "secret-text") {
-            mainText.textContent = SECRETMESSAGES[messageIndex]; 
-            if (messageIndex < SECRETMESSAGES.length) {
+            mainText.textContent = SECRET_MESSAGES[messageIndex]; 
+            if (messageIndex < SECRET_MESSAGES.length) {
                 messageIndex += 1; 
             } else {
                 if (!eerieModeOn) { activateEerieMode(); }
@@ -134,10 +134,10 @@ sections.forEach(section => {
 const SPN = ["Hereditary", "It Follows", "The Exorcist", "Ju-On: The Grudge", "Ringu"]
 const NONSPN = ["Midsommar", "The Shining", "Hush", "The Strangers", "Orphan"]
 
-const dropdown = document.querySelector("#subgenres"); 
-let userSelectedValue; 
-const result = document.querySelector("#result");
 function recommendMovie() {
+    const dropdown = document.querySelector("#subgenres"); 
+    let userSelectedValue; 
+    const result = document.querySelector("#result");
     userSelectedValue = dropdown.options[dropdown.selectedIndex].value;  
     if (userSelectedValue === "spn") {
         result.textContent = SPN[Math.floor(Math.random() * SPN.length)]; 
