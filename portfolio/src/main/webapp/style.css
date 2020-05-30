@@ -1,9 +1,173 @@
+:root {
+    --target-color: red; 
+    --circle-cursor-color: black; 
+    --highlighted-text-color: white;
+    --extra-content-opacity: 0;  
+}
+
+html, body {
+    cursor: none; 
+    margin: 0;
+    height: 100%;
+}
+
 #content {
   margin-left: auto;
   margin-right: auto;
   width: 650px;
 }
 
-#greeting-container {
-  margin-top: 20px;
+#images-parent {
+  padding: 2rem; 
+  display:flex; 
+  justify-content: center; 
+}
+
+#me-pic {
+  display:flex;
+  justify-content: center; 
+  position: relative;
+  width: 15rem;
+  height: 15rem; 
+  border-radius: 50%;
+  z-index: 1; 
+}
+
+#tomie-pic {
+  display:flex;
+  justify-content: center; 
+  position: absolute;
+  width: 15rem;
+  height: 15rem; 
+  border-radius: 50%;
+  z-index: -1; 
+}
+
+.cursor {
+    width: 2rem; 
+    height: 2rem;
+    border: 2px solid var(--circle-cursor-color); 
+    border-radius: 50%; 
+    position: absolute; 
+    transform: translate(-50%,-50%); 
+    pointer-events: none; 
+    transition: all 0.3s ease; 
+    transition-property: background, transform;
+    transform-origin: 100% 100%; 
+    z-index: -1;  
+}
+
+#sections-parent {
+    display: flex;
+    justify-content: center; 
+}
+
+.sections {
+    padding: 1rem; 
+    width: 80%; 
+    display: flex; 
+    justify-content: space-between;
+    /* justify-content: center;  */
+    list-style:none; 
+}
+
+.grow-cursor {
+    transform: scale(2); 
+    background: var(--circle-cursor-color); 
+}
+
+.color-text {
+    color: var(--highlighted-text-color);  
+}
+
+#main-heading {
+    text-align:center; 
+}
+
+.main-text {
+    height: 5rem; 
+    color: rgba(0, 0, 0, 0); 
+    text-align: justify; 
+}
+
+.fade-text-in {
+    color: rgba(0, 0, 0, 1);
+    transition: all 1s ease; 
+}
+
+.fade-image-out {
+    opacity: 0;
+    transition: all 3s ease; 
+}
+
+.eerie-text{
+    color: var(--target-color); 
+    transition: all 2s ease; 
+}
+
+#extra-content {
+  margin-left: auto;
+  margin-right: auto;
+  width: 650px; 
+  opacity: 0; 
+}
+
+#extra-content {
+    opacity: 0; 
+    transition: all 2s ease; 
+}
+
+#movie-recommendation {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: space-evenly; 
+    align-content: center; 
+    padding-top: 2rem; 
+    padding-bottom: 2rem; 
+}
+
+#recommend {
+    color:red; 
+}
+
+#filler-text {
+    color:white; 
+}
+
+#subgenres {
+    color: white; 
+    background-color: black; 
+}
+
+#result-parent {
+    width: 10rem; 
+    height: 3rem; 
+    text-align: center; 
+}
+
+#result {
+    color:white; 
+}
+
+#creepy-images {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-evenly; 
+    align-content: center; 
+    padding-top: 2rem; 
+    padding-bottom: 2rem; 
+} 
+
+.ito-images {
+  width: 8rem;
+  height: 8rem; 
+  border-radius: 50%;
+  opacity: 0.3; 
+  transition: all 1s ease;  
+}
+
+.ito-images:hover {
+  opacity:1; 
+  transition: all 1s ease; 
+  cursor: none;
 }

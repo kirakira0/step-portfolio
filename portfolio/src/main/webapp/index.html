@@ -2,17 +2,83 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Kira's Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
   </head>
   <body>
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+      <div id="images-parent">
+        <img id="me-pic" src="images/Me.jpeg" />
+        <img id="tomie-pic" src="images/Tomie.jpg" />
+      </div>
+      <div class="cursor"></div>
+      <h1 id="main-heading">Kira Toal's Portfolio</h1>
+      <p class="main-text" 
+        data-reversed="!em tuoba erom nrael ot dnuora kcilc ot eerf leef dna ,eliforp 
+        ym ta kool a gnikat rof sknahT .esenapaJ dna gnireenigne lacirtcele ni sronim 
+        htiw ecneics retupmoc ni gnirojam yltnerruc m’I dna ,ainrofilaC nrehtuoS ni 
+        ytisrevinU tnuomyraM aloyoL ta eromohpos gnisir dlo raey 81 na m’I .ariK s’eman 
+        yM !olleh dna ,тевирП ,はちにんこ">
+          こんにちは, Привет, and hello! My name’s Kira. I’m an 18 year old rising sophomore at 
+          Loyola Marymount University in Southern California, and I’m currently 
+          majoring in computer science with minors in electrical engineering and Japanese. 
+          Thanks for taking a look at my profile, and feel free to click around to learn 
+          more about me!
+      </p>
+      <nav id="sections-parent">
+          <ul class="sections">
+              <li data-message="Video games have been an important part of my 
+              life since I was very young, so I started teaching myself how to code 
+              when I was 14 so that I could create my own games. I began working in 
+              GameMaker (GML), then transitioned to Unity (C# and Javascript), and 
+              eventually started taking formal classes through Northwestern and USC
+              when I realised how much I enjoyed it!">
+                  Background
+              </li>
+              <li data-message="Python, C#, Javascript, HTML, CSS, Java, C, and
+              Assembly.">
+                  Languages
+              </li>
+               <li data-message="Unity, Visual Studios, Git, Google App Engine, Adobe 
+              Photoshop, Adobe After Effects, and Firebase. ">
+                  Technologies
+              </li>
+              <li data-message="In my spare time, I enjoy writing, drawing, and programming 
+              (often, these three culminate in the form of small video games.) I also really enjoy 
+              music and can play the piano and the kalimba (which is a wooden African thumb piano). 
+              Additionally, I like to be active, and love to playing water polo, softball, or simply
+              going for a hike with my dogs.">
+                Hobbies
+              </li>
+              <li data-message="I absolutely adore horror movies (some of my favorites include 
+              Hereditary, It Follows, The Exorcist, The Shining, and Midsommar), horror video games, 
+              horror manga and books … pretty much anything related to my favorite genre! I also enjoy 
+              learning languages, and am currently studying Japanese in university and learning some 
+              Russian and ASL from my mother in my spare time.">
+                Interests
+              </li>
+              <li id="secret-text">???</li> 
+          </ul>
+      </nav>
     </div>
+    <div id="extra-content">
+        <section id="movie-recommendation">
+            <p id="recommend" onclick="recommendMovie()"> Recommend</p>
+            <p id="filler-text"> me a </p>
+            <select id="subgenres">
+                <option value="spn" id="supernatural" onclick="recommendMovie()">supernatural horror movie</option>
+                <option value="non-spn" id="non-supernatural" onclick="recommendMovie()">non-supernatural horror movie</option>
+            </select>
+            <div id="result-parent">
+                <p id="result"> <i>result ...</i> </p>
+            </div> 
+        </section>
+        <div id="creepy-images">
+        <a href="https://www.viz.com/junji-ito" target="_blank"><img class="ito-images" src="images/Ito1.jpg" /></a>
+        <a href="https://store.steampowered.com/app/913740/WORLD_OF_HORROR/" target="_blank"><img class="ito-images" src="images/Ito2.jpg"/></a>
+        <a href="http://www.craigdavidson.net/nickcutter/index.html" target="_blank"><img class="ito-images" src="images/Ito3.jpg"/></a>
+        </div>
+    </div>
+    <script src="script.js"></script>
   </body>
 </html>
