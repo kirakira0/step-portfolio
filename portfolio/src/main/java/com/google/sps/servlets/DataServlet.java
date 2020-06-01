@@ -38,7 +38,7 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //Convert string to JSON
+    // Convert string to JSON
     String json = convertToJsonUsingGson(greetings); 
 
     // Send the JSON as the response
