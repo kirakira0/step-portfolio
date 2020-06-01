@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,17 +32,40 @@ public class DataServlet extends HttpServlet {
   public void init() {
     greetings = new ArrayList<>();
     greetings.add("Howdy!");
-    greetings.add("Good afternoon.");
-    greetings.add("How are you?");
-    greetings.add("Nice to meet you!");
-    greetings.add("How's it going?");  
+    greetings.add("What is up my dude?");
+    greetings.add("How are you?"); 
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String greeting = greetings.get((int) (Math.random() * greetings.size()));
-    response.setContentType("text/html;");
-    response.getWriter().println(greeting);
+    //Convert string to JSON
+    String json = convertToJsonUsingGson(greetings); 
+
+    // Send the JSON as the response
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
 
   }
+
+  /**
+   * Converts greetings instance into a JSON string 
+   */
+  private String convertToJson(List<String> greetings) {
+    String json = "{";
+    json += "\"greetings\": ";
+		json += greetings; 
+		json += "}";
+    return json;
+  }
+
+
+  /**
+   * Converts greetings instance into a JSON string using the Gson library. 
+   */
+  private String convertToJsonUsingGson(List<String> greetings) {
+    Gson gson = new Gson();
+    String json = gson.toJson(greetings);
+    return json;
+  }
+
 }
