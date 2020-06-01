@@ -15,18 +15,33 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private List<String> greetings;
+
+  @Override
+  public void init() {
+    greetings = new ArrayList<>();
+    greetings.add("Howdy!");
+    greetings.add("Good afternoon.");
+    greetings.add("How are you?");
+    greetings.add("Nice to meet you!");
+    greetings.add("How's it going?");  
+  }
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String greeting = greetings.get((int) (Math.random() * greetings.size()));
     response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello, Kira!</h1>");
+    response.getWriter().println(greeting);
+
   }
 }
