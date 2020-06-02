@@ -77,17 +77,19 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
     String comment = request.getParameter("comment"); // get the comment from the form
     response.setContentType("text/html"); // set response type
 
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("comment", comment);
+    if (!comment.isBlank()) { // prohibit blank comments 
+			Entity commentEntity = new Entity("Comment");
+			commentEntity.setProperty("comment", comment);
+			comments.add(comment); // add the comment to the comment list 	
+			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
+			datastore.put(commentEntity); // pass entity to datastore 
+    }
 
-    // add the comment to the comment list 
-    comments.add(comment); 
-    
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
-    datastore.put(commentEntity); // pass entity to datastore 
+    int maxNumComments = Integer.parseInt(request.getParameter("max-comments")); // parseInt since getParameters returns string 
 
     response.sendRedirect("/index.html"); // redirect back to the HTML page
 
