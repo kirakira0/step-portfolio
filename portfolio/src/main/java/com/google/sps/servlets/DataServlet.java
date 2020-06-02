@@ -16,6 +16,7 @@ package com.google.sps.servlets;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -26,38 +27,23 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private List<String> greetings;
+  // ONLY TEMPORARILY STORING IN MEMORY
+  private List<String> comments;
 
   @Override
   public void init() {
-    greetings = new ArrayList<>();
-    greetings.add("Howdy!");
-    greetings.add("What is up my dude?");
-    greetings.add("How are you?"); 
+    comments = new ArrayList<>();
+    // comments.add("Starter comment");
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Convert string to JSON
-    String json = convertToJsonUsingGson(greetings); 
-
+    String json = convertToJsonUsingGson(comments); 
     // Send the JSON as the response
     response.setContentType("application/json;");
     response.getWriter().println(json);
-
   }
-
-  /**
-   * Converts greetings instance into a JSON string 
-   */
-  private String convertToJson(List<String> greetings) {
-    String json = "{";
-    json += "\"greetings\": ";
-		json += greetings; 
-		json += "}";
-    return json;
-  }
-
 
   /**
    * Converts greetings instance into a JSON string using the Gson library. 
@@ -66,6 +52,22 @@ public class DataServlet extends HttpServlet {
     Gson gson = new Gson();
     String json = gson.toJson(greetings);
     return json;
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // get the comment from the form
+    String comment = request.getParameter("comment"); 
+    response.setContentType("text/html");
+
+    // response.getWriter().println(comment);
+
+    // add the comment to the comment list 
+    comments.add(comment); 
+    // redirect back to the HTML page
+    response.sendRedirect("/index.html");
+
+ 
   }
 
 }
