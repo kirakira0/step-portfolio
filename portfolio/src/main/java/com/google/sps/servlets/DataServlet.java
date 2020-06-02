@@ -23,6 +23,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -56,21 +59,20 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // get the comment from the form
-    String comment = request.getParameter("comment"); 
-    response.setContentType("text/html");
+    String comment = request.getParameter("comment"); // get the comment from the form
+    response.setContentType("text/html"); // set response type
 
-    // response.getWriter().println(comment);
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("comment", comment);
 
     // add the comment to the comment list 
     comments.add(comment); 
-    // redirect back to the HTML page
-    response.sendRedirect("/index.html");
     
-    // instance of DatastoreService class
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
+    datastore.put(commentEntity); // pass entity to datastore 
 
- 
+    response.sendRedirect("/index.html"); // redirect back to the HTML page
+
   }
 
 }
