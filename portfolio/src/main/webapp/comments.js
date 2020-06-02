@@ -1,12 +1,6 @@
 /**
- * 
+ * Fetches and posts user comments 
  */
-//TODO: CHANGE NAME
-// const form = document.getElementById('form'); 
-// form.addEventListener('submit', e => {
-// 	e.preventDefault(); 
-// 	postComment(); 
-// }); 
 
 function postComment() {
 	fetch('/data').then(response => response.json()).then((comments) => {
@@ -15,6 +9,7 @@ function postComment() {
 		if (comments === null) {
 		  commentsContainer.innerHTML = "No comments yet!";
 		} else {
+			// post the comment
 		  commentsContainer.innerHTML = comments;
 		}
 	}); 
