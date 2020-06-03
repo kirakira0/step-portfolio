@@ -33,35 +33,24 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  // ONLY TEMPORARILY STORING IN MEMORY
   private List<String> comments;
 
   @Override
   public void init() {
     comments = new ArrayList<>();
-    // comments.add("Starter comment");
   }
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // create query instance of desired entity
     Query query = new Query("Comment").addSort("comment", SortDirection.DESCENDING);
-
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
     List<String> listOfComments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-
       String comment = (String) entity.getProperty("comment");
-
       listOfComments.add(comment);
-
     }
-
-    // Convert string to JSON
     String json = convertToJsonUsingGson(listOfComments); 
-    // Send the JSON as the response
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
@@ -77,22 +66,27 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
     String comment = request.getParameter("comment"); // get the comment from the form
     response.setContentType("text/html"); // set response type
-
     if (!comment.isBlank()) { // prohibit blank comments 
 			Entity commentEntity = new Entity("Comment");
 			commentEntity.setProperty("comment", comment);
-			comments.add(comment); // add the comment to the comment list 	
+			comments.add(comment); // add the comment to the comment list 
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
 			datastore.put(commentEntity); // pass entity to datastore 
-    }
-
-    int maxNumComments = Integer.parseInt(request.getParameter("max-comments")); // parseInt since getParameters returns string 
-
+    }	
     response.sendRedirect("/index.html"); // redirect back to the HTML page
+  }
 
+  @Override
+  public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    Query query = new Query("Comment");
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query); 
+    for (Entity entity : results.asIterable()) {
+      datastore.delete(entity.getKey());
+    }
+    response.sendRedirect("/index.html"); // redirect back to the HTML page
   }
 
 }

@@ -171,3 +171,9 @@ html, body {
   transition: all 1s ease; 
   cursor: none;
 }
+
+#comment-section {
+  margin-left: auto;
+  margin-right: auto;
+  width: 650px;  
+}

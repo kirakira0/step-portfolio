@@ -79,16 +79,17 @@
         <a href="http://www.craigdavidson.net/nickcutter/index.html" target="_blank"><img class="ito-images" src="images/Ito3.jpg"/></a>
         </div>
     </div>
-
+    <div id="comment-section">
     <h2>Comment section</h2>
-    <form id="form" action="/data" method="POST">
+    <form id="form" autocomplete="off" action="/data" method="POST">
         <label for="comment">Leave a comment here:</label>
         <input type="text-input" name="comment" >
         <label for="max-comments">Comments to display:</label> 
         <input type="number" name="max-comments" min="1" max="50" value="1">
         <input type="submit" value="Submit">
     </form> 
-    <h2 id="comment-display">list of comments here</h2>
+    <ul id="comment-display"></ul>
+    </div> 
     <script src="comments.js"></script> 
     <script src="script.js"></script>
   </body>
