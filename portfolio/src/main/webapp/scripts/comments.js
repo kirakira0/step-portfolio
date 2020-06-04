@@ -6,7 +6,7 @@
     comments.forEach((comment) => {
       createComment(comment); 
     }); 
-	}); 
+  }); 
 }
 
 function createComment(comment) {

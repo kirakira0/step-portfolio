@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Comment Section</title>
+    <link rel="stylesheet" href="../styles/comments.css">
+  </head>
+  <body onload="postComment()">
+	<div id="comment-section">
+    <div id="input-area>">
+    	<h2>Comment section</h2>
+    	<form id="form" autocomplete="off" action="/data" method="POST">
+				<label for="comment">Leave a comment here:</label>
+				<input type="text-input" name="comment" >
+				<!-- <label for="max-comments">Comments to display:</label>  -->
+				<!-- <input type="number" name="max-comments" min="1" max="50" value="1"> -->
+				<input type="submit" value="Submit">
+    	</form> 
+		</div>
+		<div id="output-area">
+     <ul id="comment-display"></ul>
+		</div>
+    </div> 
+    <script src="../scripts/comments.js"></script> 
+  </body>
+</html>

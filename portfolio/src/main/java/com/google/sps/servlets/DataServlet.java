@@ -74,7 +74,7 @@ public class DataServlet extends HttpServlet {
     datastore.put(commentEntity);
     doGet(request, response);	
     
-    response.sendRedirect("/index.html"); // redirect back to the HTML page
+    response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
   }
 
 
