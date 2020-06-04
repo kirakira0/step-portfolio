@@ -52,7 +52,7 @@ public class DataServlet extends HttpServlet {
 
     List<Comment> listOfComments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      Comment comment = Comment.convertToComment(entity);
+      Comment comment = Comment.convertToComment(entity); // convert from entity to comment object
       listOfComments.add(comment);
     }
 
@@ -64,12 +64,13 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String username = request.getParameter("username"); // get the username from the form
     String commentContent = request.getParameter("comment"); // get the comment from the form
 
     response.setContentType("text/html"); // set response type
 
     // TODO: PROHIBIT BLANK COMMENTS
-    Entity commentEntity = Comment.createNewCommentEntity(commentContent);
+    Entity commentEntity = Comment.createNewCommentEntity(username, commentContent);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
     datastore.put(commentEntity);
     doGet(request, response);	

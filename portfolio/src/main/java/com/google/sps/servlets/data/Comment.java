@@ -35,11 +35,14 @@ public class Comment {
     return json;
   }
 
-  public static Entity createNewCommentEntity(String content) {
+  public static Entity createNewCommentEntity(String username, String content) {
     Entity commentEntity = new Entity("Comment");
-    //TODO: LET USERS SET THEIR OWN NAMES
-    commentEntity.setProperty("username", "TEST NAME");
-    commentEntity.setProperty("content", content);
+    // set username 
+    if (username.isBlank()) { commentEntity.setProperty("username", "ANONYMOUS"); } // if blank username
+    else { commentEntity.setProperty("username", username); }
+    // set comment content
+    if (content.isBlank()) { commentEntity.setProperty("content", "The webpage was so cool, this user was left speechless!"); }
+    else { commentEntity.setProperty("content", content); }
     commentEntity.setProperty("timestamp", System.currentTimeMillis());
     return commentEntity;
   }
