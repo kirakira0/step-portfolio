@@ -56,11 +56,10 @@ public class DataServlet extends HttpServlet {
       listOfComments.add(comment);
     }
 
-    String json = Comment.convertToJson(listOfComments);
+    String json = Comment.convertToJson(listOfComments.subList(0, 4));
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
-
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -77,6 +76,5 @@ public class DataServlet extends HttpServlet {
     
     response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
   }
-
 
 }
