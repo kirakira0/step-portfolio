@@ -29,6 +29,10 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+
+import com.google.sps.servlets.models.Comment;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -41,52 +45,37 @@ public class DataServlet extends HttpServlet {
   }
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment").addSort("comment", SortDirection.DESCENDING);
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException { 
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    List<String> listOfComments = new ArrayList<>();
+
+    List<Comment> listOfComments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      String comment = (String) entity.getProperty("comment");
+      Comment comment = Comment.convertToComment(entity);
       listOfComments.add(comment);
     }
-    String json = convertToJsonUsingGson(listOfComments); 
+
+    String json = Comment.convertToJson(listOfComments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
-  /**
-   * Converts greetings instance into a JSON string using the Gson library. 
-   */
-  private String convertToJsonUsingGson(List<String> greetings) {
-    Gson gson = new Gson();
-    String json = gson.toJson(greetings);
-    return json;
-  }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("comment"); // get the comment from the form
+    String commentContent = request.getParameter("comment"); // get the comment from the form
+
     response.setContentType("text/html"); // set response type
-    if (!comment.isBlank()) { // prohibit blank comments 
-			Entity commentEntity = new Entity("Comment");
-			commentEntity.setProperty("comment", comment);
-			comments.add(comment); // add the comment to the comment list 
-			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
-			datastore.put(commentEntity); // pass entity to datastore 
-    }	
+
+    // TODO: PROHIBIT BLANK COMMENTS
+    Entity commentEntity = Comment.createNewCommentEntity(commentContent);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
+    datastore.put(commentEntity);
+    doGet(request, response);	
+    
     response.sendRedirect("/index.html"); // redirect back to the HTML page
   }
 
-  @Override
-  public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment");
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query); 
-    for (Entity entity : results.asIterable()) {
-      datastore.delete(entity.getKey());
-    }
-    response.sendRedirect("/index.html"); // redirect back to the HTML page
-  }
 
 }

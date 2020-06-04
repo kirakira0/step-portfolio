@@ -1,41 +1,37 @@
 /**
  * Fetches and posts user comments 
  */
-function postComment() {
+ function postComment() {
 	fetch('/data').then(response => response.json()).then((comments) => {
-		const commentsContainer = document.getElementById('comment-display');
-		if (comments === null) {
-		  commentsContainer.innerHTML = "No comments yet!";
-		} else {
-        comments.forEach((comment) => {
-						createCommentElement(commentsContainer, comment); 
-          })
-        }
+    comments.forEach((comment) => {
+      createComment(comment); 
+    }); 
 	}); 
 }
 
-function createCommentElement(commentsContainer, comment) {
-	// create comment
+function createComment(comment) {
+	const commentsContainer = document.getElementById('comment-display');
+  // create the comment element
 	const commentElement = document.createElement('div');
-	commentElement.innerText = comment;
+  // TODO: CONVERT TIMESTAMP TO READABLE TIME
+	commentElement.innerText = comment.username + " [" + comment.timestamp.toString() + "]\n" + comment.content + "\n"; 
 	commentsContainer.appendChild(commentElement);
-	// create delete button
+  // create the delete button 
 	const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
-    // Deletes the comment from datastore 
-		deleteComment(comment);
-    // Remove the comment from the DOM.
-    commentElement.remove();
+	deleteComment(comment); // deletes the comment from datastore 
+    commentElement.remove(); // remove the comment from the DOM.
   });
   commentElement.appendChild(deleteButtonElement);
+  // TODO: LIKE FEATURE ? 
 }
 
 /**
- * Sends a DELETE request to the /data URL 
+ * Sends a POST request to the /delete-comment-data URL 
  */
 function deleteComment(comment) {
-	const params = new URLSearchParams();
+  const params = new URLSearchParams(); 
   params.append('id', comment.id);
-  fetch('/data', {method: 'DELETE', body: params});
+  fetch('/delete-comment-data', {method: 'POST', body: params});
 }
