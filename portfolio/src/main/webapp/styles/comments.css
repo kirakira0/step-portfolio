@@ -1,17 +1,26 @@
 body {
   background-color: white; 
+  font-family: 'Raleway', sans-serif;
+}
+
+.header {
+  display: flex;
+  flex-direction: row; 
+  justify-content: center;
+  align-items: center; 
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
 }
 
 #comment-section {
   display: grid; 
   grid-template-columns: 50% 50%;
-}
-
-h1 {
-  text-align: center; 
-  grid-column: 1 / span 2;
-  padding: 1%;
-  margin: 0%; 
+  padding-top: 7%; 
 }
 
 #input-area {
@@ -35,6 +44,13 @@ h1 {
   grid-column-start: 2;
   padding: 5%;
   padding-bottom: 15%;  
+}
+
+#number-comments {
+  display: flex; 
+  justify-content: center; 
+  text-align: center; 
+  width: 10%; 
 }
 
 .footer {
