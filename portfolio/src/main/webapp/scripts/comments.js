@@ -22,16 +22,27 @@ function postComment() {
 }
 
 /**
- * Adds a comment element to the DOM
+ * Constructs comment element and adds it to the DOM
  */
 function displayComment(comment) {
 	const commentsContainer = document.getElementById('comment-display');
   // create the comment element
 	const commentElement = document.createElement('div');
+  commentElement.setAttribute("id", "comment-element");
   // converts timstamp to readable string
   let date = new Date(comment.timestamp).toDateString();
   let time = millisToTime(comment.timestamp);
-  commentElement.innerText = `${comment.username} [${time} ${date}]\n${comment.content}`; 
+
+  const username = document.createElement('p'); // username p 
+  setChild(commentElement, username, "username", comment.username);
+
+  const dateAndTime = document.createElement('p'); // timestamp p 
+  setChild(commentElement, dateAndTime, "date-and-time", `${time} ${date}`); 
+
+  const content = document.createElement('p'); // content p 
+  setChild(commentElement, content, "content", comment.content);
+  
+
 	commentsContainer.appendChild(commentElement);
   // create the delete button 
 	const deleteButtonElement = document.createElement('button');
@@ -41,6 +52,15 @@ function displayComment(comment) {
     commentElement.remove(); // remove the comment from the DOM.
   });
   commentElement.appendChild(deleteButtonElement);
+}
+
+/**
+ * Sets the child's id and text content and appends it to the parent
+ */
+function setChild(commentElement, elementName, id, content) {
+  elementName.setAttribute("id", id);
+  commentElement.appendChild(elementName);
+  elementName.innerText = content; 
 }
 
 /**

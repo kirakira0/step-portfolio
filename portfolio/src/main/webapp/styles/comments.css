@@ -10,6 +10,8 @@ body {
 h1 {
   text-align: center; 
   grid-column: 1 / span 2;
+  padding: 1%;
+  margin: 0%; 
 }
 
 #input-area {
@@ -17,8 +19,13 @@ h1 {
   display: flex; 
   flex-direction: column; 
   justify-content: center; 
+  align-self: flex-start; 
   grid-column-start: 1;
-  padding: 5%; 
+}
+
+#contact-info {
+  padding-right: 5%;
+  padding-left: 5%; 
 }
 
 #output-area {
@@ -53,4 +60,11 @@ a {
   border-radius: 50%;
   width: 15rem;
   height: 15rem; 
+}
+
+#comment-element {
+  margin: 5%;
+  padding: 2%; 
+  outline: 2px solid black;
+  color: black; 
 }
