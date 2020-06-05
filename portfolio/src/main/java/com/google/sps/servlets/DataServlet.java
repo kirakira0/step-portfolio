@@ -14,19 +14,68 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+import com.google.sps.servlets.models.Comment;
+
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private List<String> comments;
+
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
+  public void init() {
+    comments = new ArrayList<>();
   }
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException { 
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    List<Comment> listOfComments = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      Comment comment = Comment.convertToComment(entity);
+      listOfComments.add(comment);
+    }
+
+    String json = Comment.convertToJson(listOfComments);
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String commentContent = request.getParameter("comment"); // get the comment from the form
+
+    response.setContentType("text/html"); // set response type
+
+    // TODO: PROHIBIT BLANK COMMENTS
+    Entity commentEntity = Comment.createNewCommentEntity(commentContent);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
+    datastore.put(commentEntity);
+    doGet(request, response);	
+    
+    response.sendRedirect("/index.html"); // redirect back to the HTML page
+  }
+
+
 }
