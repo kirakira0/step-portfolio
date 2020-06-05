@@ -1,12 +1,27 @@
+const numberOfCommentsForm = document.querySelector("#number-comments"); 
+numberOfCommentsForm.addEventListener('change', e => {
+    const commentsContainer = document.getElementById('comment-display');
+    commentsContainer.innerHTML = ""; 
+    var numComments = numberOfCommentsForm.value; 
+    fetch(`/list-comments?numComments=${numComments}`).then(response => response.json()).then((comments) => {
+    comments.forEach((comment) => {
+      createComment(comment); 
+      }); 
+    });
+})
+
+
 /**
  * Fetches and posts user comments 
  */
  function postComment() {
-	fetch('/data').then(response => response.json()).then((comments) => {
+	fetch('/list-comments').then(response => response.json()).then((comments) => {
     comments.forEach((comment) => {
       createComment(comment); 
-    }); 
-  }); 
+      }); 
+    });
+
+  
 }
 
 function createComment(comment) {
@@ -35,7 +50,7 @@ function createComment(comment) {
 function deleteComment(comment) {
   const params = new URLSearchParams(); 
   params.append('id', comment.id);
-  fetch('/delete-comment-data', {method: 'POST', body: params});
+  fetch('/delete-comment', {method: 'POST', body: params});
 }
 
 /**
