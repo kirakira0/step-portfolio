@@ -1,30 +1,30 @@
+/**
+ * Changes the number of comments visible on the page
+ */
 const numberOfCommentsForm = document.querySelector("#number-comments"); 
 numberOfCommentsForm.addEventListener('change', e => {
-    const commentsContainer = document.getElementById('comment-display');
-    commentsContainer.innerHTML = ""; 
-    var limit = numberOfCommentsForm.value; 
-    fetch(`/list-comments?limit=${limit}`).then(response => response.json()).then((comments) => {
-    comments.forEach((comment) => {
-      createComment(comment); 
-      }); 
-    });
+  const commentsContainer = document.getElementById('comment-display');
+  commentsContainer.innerHTML = ""; 
+  var limit = numberOfCommentsForm.value; 
+  fetch(`/list-comments?limit=${limit}`).then(response => response.json()).then((comments) => {
+  comments.forEach((comment) => {
+    displayComment(comment); 
+    }); 
+  });
 })
 
-
-/**
- * Fetches and posts user comments 
- */
- function postComment() {
+function postComment() {
 	fetch('/list-comments').then(response => response.json()).then((comments) => {
     comments.forEach((comment) => {
-      createComment(comment); 
-      }); 
-    });
-
-  
+      displayComment(comment); 
+    }); 
+  }); 
 }
 
-function createComment(comment) {
+/**
+ * Adds a comment element to the DOM
+ */
+function displayComment(comment) {
 	const commentsContainer = document.getElementById('comment-display');
   // create the comment element
 	const commentElement = document.createElement('div');
@@ -41,7 +41,6 @@ function createComment(comment) {
     commentElement.remove(); // remove the comment from the DOM.
   });
   commentElement.appendChild(deleteButtonElement);
-  // TODO: LIKE FEATURE ? 
 }
 
 /**
@@ -57,7 +56,6 @@ function deleteComment(comment) {
  * Converts timestamp in milliseconds to a readable string value
  */
 function millisToTime(timestamp) {
-//   var milliseconds = parseInt((timestamp % 1000) / 100),
   seconds = Math.floor((timestamp / 1000) % 60),
   minutes = Math.floor((timestamp / (1000 * 60)) % 60),
   hours = Math.floor((timestamp / (1000 * 60 * 60)) % 24);
@@ -65,6 +63,4 @@ function millisToTime(timestamp) {
   minutes = (minutes < 10) ? "0" + minutes : minutes;
   seconds = (seconds < 10) ? "0" + seconds : seconds;
   return hours + ":" + minutes + ":" + seconds;
-    // return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
-
 }
