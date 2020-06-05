@@ -45,7 +45,7 @@ public class ListComments extends HttpServlet {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    int limit = 1; 
+    int limit = 5; 
     if (request.getParameter("limit") != null) {
       try {
         limit = Integer.parseInt(request.getParameter("limit")); 
@@ -55,7 +55,7 @@ public class ListComments extends HttpServlet {
       }
     }
     
-		List<Entity> limitedResults = results.asList(FetchOptions.Builder.withLimit(limit));
+	List<Entity> limitedResults = results.asList(FetchOptions.Builder.withLimit(limit));
     List<Comment> listOfComments = new ArrayList<>();
     for (Entity entity : limitedResults) {
       Comment comment = Comment.convertToComment(entity); // convert from entity to comment object

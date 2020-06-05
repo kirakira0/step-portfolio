@@ -1,6 +1,5 @@
 body {
-  background-color: white;
-  padding: 5%; 
+  background-color: white; 
 }
 
 #comment-section {
@@ -8,10 +7,50 @@ body {
   grid-template-columns: 50% 50%;
 }
 
+h1 {
+  text-align: center; 
+  grid-column: 1 / span 2;
+}
+
 #input-area {
+  text-align: center; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
   grid-column-start: 1;
+  padding: 5%; 
 }
 
 #output-area {
+  text-align: center; 
+  display: flex; 
+  flex-direction: column; 
   grid-column-start: 2;
+  padding: 5%;
+  padding-bottom: 15%;  
+}
+
+.footer {
+  display: flex;
+  flex-direction: row; 
+  justify-content: center;
+  align-items: center; 
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+
+a {
+  color: white; 
+  text-decoration: none;
+}
+
+#img1 {
+  border-radius: 50%;
+  width: 15rem;
+  height: 15rem; 
 }

@@ -2,26 +2,37 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Comment Section</title>
+    <title>Contact</title>
     <link rel="stylesheet" href="../styles/comments.css">
   </head>
   <body onload="postComment()">
-	<div id="comment-section">
-    <div id="input-area>">
-    	<h2>Comment section</h2>
-    	<form id="form" autocomplete="off" action="/create-new-comment" method="POST">
-				<label for="username">Name:</label>
-				<input type="text-input" name="username">
-				<label for="comment">Leave a comment here:</label>
-				<input type="text-input" name="comment">
-				<input type="submit" value="Submit">
-    	</form> 
-		</div>
-		<div id="output-area">
-      <label for="number-comments">Maximum number of comments to display:</label> 
-			<input type="number" name="number-comments" id="number-comments" min="1" max="50" value="1">
-      <ul id="comment-display"></ul>
-	  </div>
+    <div id="comment-section">
+      <h1>Contact</h1>
+      <div id="input-area">
+        <form id="form" autocomplete="off" action="/create-new-comment" method="POST">
+          <img id="img1" src="../images/CommentImg1.png"/>
+          <p id="contact-info">
+            To contact Kira with questions or suggestions for this page (or horror movie recommendations), 
+            send her an email at ktoal@google.com. You are also free to leave a comment using the form below.
+          </p>
+          <p>Name:</p>
+          <input type="text-input" name="username">
+          <p>Leave a comment:</p>
+          <input type="text-input" name="comment">
+          <p></p>
+          <input type="submit" value="Submit">
+        </form> 
+      </div>
+      <div id="output-area">
+        <label for="number-comments">Maximum number of comments to display:</label> 
+        <input type="number" name="number-comments" id="number-comments" min="1" value="5">
+        <ul id="comment-display"></ul>
+      </div>
+      <footer class="footer">
+        <a href="../index.html"><p>About</p></a>
+        <p>&#x2609;</p>
+        <a href="comments.html"><p>Contact</p></a>
+      </footer>
     </div> 
     <script src="../scripts/comments.js"></script> 
   </body>
