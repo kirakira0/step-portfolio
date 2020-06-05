@@ -60,6 +60,7 @@ function setChild(commentElement, elementName, id, content) {
 function createDeleteButton(commentElement, comment) {
 	const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.setAttribute("id", "delete-button");
   deleteButtonElement.addEventListener('click', () => {
 	deleteComment(comment); // deletes the comment from datastore 
     commentElement.remove(); // remove the comment from the DOM.
