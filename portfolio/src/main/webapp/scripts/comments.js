@@ -2,8 +2,8 @@ const numberOfCommentsForm = document.querySelector("#number-comments");
 numberOfCommentsForm.addEventListener('change', e => {
     const commentsContainer = document.getElementById('comment-display');
     commentsContainer.innerHTML = ""; 
-    var numComments = numberOfCommentsForm.value; 
-    fetch(`/list-comments?numComments=${numComments}`).then(response => response.json()).then((comments) => {
+    var limit = numberOfCommentsForm.value; 
+    fetch(`/list-comments?limit=${limit}`).then(response => response.json()).then((comments) => {
     comments.forEach((comment) => {
       createComment(comment); 
       }); 

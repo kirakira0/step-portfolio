@@ -45,39 +45,25 @@ public class ListComments extends HttpServlet {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    // TRY CATCH IF PARSE IN FAILS
-    int limit = 3; 
-    if (request.getParameter("numComments") != null) {
-        limit = Integer.parseInt(request.getParameter("numComments")); 
+    int limit = 1; 
+    if (request.getParameter("limit") != null) {
+      try {
+        limit = Integer.parseInt(request.getParameter("limit")); 
+        if (limit < 1) {limit = 1;} 
+      } catch (NumberFormatException e) {
+        System.err.println(request.getParameter("limit") + "is not an integer");
+      }
     }
-    List<Entity> topResults = results.asList(FetchOptions.Builder.withLimit(limit));
-
-
+    
+		List<Entity> limitedResults = results.asList(FetchOptions.Builder.withLimit(limit));
     List<Comment> listOfComments = new ArrayList<>();
-    // for (Entity entity : results.asIterable()) {
-    for (Entity entity : topResults) {
-
+    for (Entity entity : limitedResults) {
       Comment comment = Comment.convertToComment(entity); // convert from entity to comment object
       listOfComments.add(comment);
     }
 
-    // String json = Comment.convertToJson(listOfComments.subList(0, 4));
-        String json = Comment.convertToJson(listOfComments);
-
+    String json = Comment.convertToJson(listOfComments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
-
-/*
-*
-*/ 
-  private int getNumberOfComments(HttpServletRequest request) throws IOException {
-    String nCommentsString = request.getParameter("number-comments");
-    int nComments;
-    nComments = Integer.parseInt(nCommentsString);
-
-
-    return 0; 
-  }
-
 }

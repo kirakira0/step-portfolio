@@ -26,16 +26,6 @@ public class Comment {
     return comment;
   }
 
-
-  /**
-   * Converts comments instance into a JSON string using the Gson library. 
-   */
-  public static String convertToJson(List<Comment> comments) {
-    Gson gson = new Gson();
-    String json = gson.toJson(comments);
-    return json;
-  }
-
   public static Entity createNewCommentEntity(String username, String content) {
     Entity commentEntity = new Entity("Comment");
     // set username 
@@ -46,6 +36,15 @@ public class Comment {
     else { commentEntity.setProperty("content", content); }
     commentEntity.setProperty("timestamp", System.currentTimeMillis());
     return commentEntity;
+  }
+
+  /**
+   * Converts comments instance into a JSON string using the Gson library. 
+   */
+  public static String convertToJson(List<Comment> comments) {
+    Gson gson = new Gson();
+    String json = gson.toJson(comments);
+    return json;
   }
 
 }

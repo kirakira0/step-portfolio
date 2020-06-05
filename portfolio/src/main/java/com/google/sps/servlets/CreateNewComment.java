@@ -36,13 +36,10 @@ public class CreateNewComment extends HttpServlet {
 
     response.setContentType("text/html"); // set response type
 
-    // TODO: PROHIBIT BLANK COMMENTS
     Entity commentEntity = Comment.createNewCommentEntity(username, commentContent);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
     datastore.put(commentEntity);
-    // doGet(request, response);	
     
     response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
   }
-
 }
