@@ -50,20 +50,32 @@ public class ListComments extends HttpServlet {
       try {
         limit = Integer.parseInt(request.getParameter("limit")); 
         if (limit < 1) {limit = 1;} 
+        if (limit > 50) {limit = 50;}
       } catch (NumberFormatException e) {
         System.err.println(request.getParameter("limit") + "is not an integer");
       }
     }
     
-	  List<Entity> limitedResults = results.asList(FetchOptions.Builder.withLimit(limit));
+    List<Entity> limitedResults = results.asList(FetchOptions.Builder.withLimit(limit));
     List<Comment> listOfComments = new ArrayList<>();
     for (Entity entity : limitedResults) {
-      Comment comment = Comment.convertToComment(entity); // convert from entity to comment object
+      // Comment comment = Comment.convertToComment(entity); // convert from entity to comment object
+      Comment comment = new Comment(entity); 
       listOfComments.add(comment);
     }
 
-    String json = Comment.convertToJson(listOfComments);
+    String json = convertToJson(listOfComments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
+
+  /**
+   * Converts comments instance into a JSON string using the Gson library. 
+   */
+  public String convertToJson(List<Comment> comments) {
+    Gson gson = new Gson();
+    String json = gson.toJson(comments);
+    return json;
+  }
+  
 }
