@@ -7,18 +7,22 @@ numberOfCommentsForm.addEventListener('change', e => {
   commentsContainer.innerHTML = ""; 
   var limit = numberOfCommentsForm.value; 
   fetch(`/list-comments?limit=${limit}`).then(response => response.json()).then((comments) => {
-  comments.forEach((comment) => {
-    displayComment(comment); 
-    }); 
-  });
+    comments.forEach((comment) => {
+      displayComment(comment); 
+    }) 
+  }).catch(err => {
+      alert("Error in network call."); 
+  })
 })
 
 function postComment() {
 	fetch('/list-comments').then(response => response.json()).then((comments) => {
     comments.forEach((comment) => {
       displayComment(comment); 
-    }); 
-  }); 
+    }) 
+  }).catch(err => {
+      alert("Error in network call."); 
+  })
 }
 
 /**
@@ -28,16 +32,16 @@ function displayComment(comment) {
 	const commentsContainer = document.getElementById('comment-display');
   // create the comment element
 	const commentElement = document.createElement('div');
-  // converts timstamp to readable string
-  let date = new Date(comment.timestamp).toDateString();
-  let time = millisToTime(comment.timestamp);
+  // converts timestamp to readable string
+  const date = new Date(comment.timestamp).toDateString();
+  const time = millisToTime(comment.timestamp);
   commentElement.innerText = `${comment.username} [${time} ${date}]\n${comment.content}`; 
 	commentsContainer.appendChild(commentElement);
   // create the delete button 
 	const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
-	deleteComment(comment); // deletes the comment from datastore 
+	  deleteComment(comment); // deletes the comment from datastore 
     commentElement.remove(); // remove the comment from the DOM.
   });
   commentElement.appendChild(deleteButtonElement);
@@ -49,7 +53,9 @@ function displayComment(comment) {
 function deleteComment(comment) {
   const params = new URLSearchParams(); 
   params.append('id', comment.id);
-  fetch('/delete-comment', {method: 'POST', body: params});
+  fetch('/delete-comment', {method: 'POST', body: params}).catch(err => {
+      alert("Error in network call."); 
+  })
 }
 
 /**
