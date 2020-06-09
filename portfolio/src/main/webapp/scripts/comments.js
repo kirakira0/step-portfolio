@@ -7,8 +7,8 @@ numberOfCommentsForm.addEventListener('change', e => {
   commentsContainer.innerHTML = ""; 
   var limit = numberOfCommentsForm.value; 
   fetch(`/list-comments?limit=${limit}`).then(response => response.json()).then((comments) => {
-    comments.forEach((comment) => {
-      displayComment(comment); 
+  comments.forEach((comment) => {
+    displayComment(comment); 
     }) 
   }).catch(err => {
       alert("Error in network call."); 
@@ -19,29 +19,54 @@ function postComment() {
 	fetch('/list-comments').then(response => response.json()).then((comments) => {
     comments.forEach((comment) => {
       displayComment(comment); 
-    }) 
+    }); 
   }).catch(err => {
       alert("Error in network call."); 
-  })
+  }) 
 }
 
 /**
- * Adds a comment element to the DOM
+ * Constructs comment element and adds it to the DOM
  */
 function displayComment(comment) {
+
 	const commentsContainer = document.getElementById('comment-display');
-  // create the comment element
-	const commentElement = document.createElement('div');
-  // converts timestamp to readable string
-  const date = new Date(comment.timestamp).toDateString();
+	const commentElement = document.createElement('div'); // create the comment element
+  commentElement.setAttribute("id", "comment-element");
+  
+  const date = new Date(comment.timestamp).toDateString(); // converts timestamp to readable string
   const time = millisToTime(comment.timestamp);
-  commentElement.innerText = `${comment.username} [${time} ${date}]\n${comment.content}`; 
-	commentsContainer.appendChild(commentElement);
-  // create the delete button 
+
+  const username = document.createElement('p'); // username p 
+  setChild(commentElement, username, "username", comment.username);
+  const dateAndTime = document.createElement('p'); // timestamp p 
+  setChild(commentElement, dateAndTime, "date-and-time", `${time} ${date}`); 
+  const content = document.createElement('p'); // content p 
+  setChild(commentElement, content, "content", comment.content);
+  createDeleteButton(commentElement, comment); // delete button
+	
+  commentsContainer.appendChild(commentElement);
+
+}
+
+/**
+ * Sets the child's id and text content and appends it to the parent
+ */
+function setChild(commentElement, elementName, id, content) {
+  elementName.setAttribute("id", id);
+  commentElement.appendChild(elementName);
+  elementName.innerText = content; 
+}
+
+/**
+ * Create delete button
+ */
+function createDeleteButton(commentElement, comment) {
 	const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.setAttribute("id", "delete-button");
   deleteButtonElement.addEventListener('click', () => {
-	  deleteComment(comment); // deletes the comment from datastore 
+	deleteComment(comment); // deletes the comment from datastore 
     commentElement.remove(); // remove the comment from the DOM.
   });
   commentElement.appendChild(deleteButtonElement);
@@ -70,3 +95,13 @@ function millisToTime(timestamp) {
   seconds = (seconds < 10) ? "0" + seconds : seconds;
   return hours + ":" + minutes + ":" + seconds;
 }
+
+/**
+ * Shows feedback on login status
+ */
+async function showCommentFeedback() {
+const response = await fetch('/create-new-comment');
+const loginStatus = await response.text();
+document.getElementById('login-feedback').innerText = loginStatus;
+}
+

@@ -24,23 +24,52 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import com.google.gson.Gson;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.sps.servlets.models.Comment;
+
+// import com.google.appengine.api.datastore.PreparedQuery;
+// import com.google.appengine.api.datastore.Query;
+// import com.google.appengine.api.datastore.Query.SortDirection;
 
 /** Servlet responsible for creating new comments */
 @WebServlet("/create-new-comment")
 public class CreateNewComment extends HttpServlet {  
+
+  @Override
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Only logged-in users can add a comment
+    response.setContentType("text/html"); // set response type
+
+    UserService userService = UserServiceFactory.getUserService();
+    if (userService.isUserLoggedIn()) {
+      String userEmail = userService.getCurrentUser().getEmail();
+      response.getWriter().println("Hello " + userEmail + "! Now that you're logged in, feel free to leave a comment.");   
+    } else {
+      response.getWriter().println("Please log in to leave a comment.");   
+    }
+  }
+
   
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String username = request.getParameter("username"); // get the username from the form
-    String commentContent = request.getParameter("comment"); // get the comment from the form
-
-    response.setContentType("text/html"); // set response type
-
-    Entity commentEntity = Comment.createNewCommentEntity(username, commentContent);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
-    datastore.put(commentEntity);
     
-    response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
+    // Only logged-in users can add a comment
+    UserService userService = UserServiceFactory.getUserService();
+    if (userService.isUserLoggedIn()) {
+      String username = request.getParameter("username"); // get the username from the form
+      String commentContent = request.getParameter("comment"); // get the comment from the form
+
+      response.setContentType("text/html"); // set response type
+
+      Entity commentEntity = Comment.createNewCommentEntity(username, commentContent);
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
+      datastore.put(commentEntity);
+
+      response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
+    } else {
+      response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
+    }
+
   }
 }

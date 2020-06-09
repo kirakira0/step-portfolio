@@ -59,8 +59,7 @@ public class ListComments extends HttpServlet {
     List<Entity> limitedResults = results.asList(FetchOptions.Builder.withLimit(limit));
     List<Comment> listOfComments = new ArrayList<>();
     for (Entity entity : limitedResults) {
-      // Comment comment = Comment.convertToComment(entity); // convert from entity to comment object
-      Comment comment = new Comment(entity); 
+      Comment comment = new Comment(entity);  
       listOfComments.add(comment);
     }
 
