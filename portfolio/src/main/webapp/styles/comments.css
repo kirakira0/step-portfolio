@@ -123,7 +123,7 @@ a {
   transition: all 1s ease;  
 }
 
-#submit-comment {
+.submit-button {
   width: 20%;
   height: 60%;
   background-color: white;
@@ -131,8 +131,13 @@ a {
   transition: all 1s ease;
 }
 
-#submit-comment:hover {
+.submit-button:hover {
   background-color: black;
   color: white;
   transition: all 1s ease;  
+}
+
+#centering-container {
+  display: flex; 
+  justify-content: center;
 }

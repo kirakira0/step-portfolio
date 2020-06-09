@@ -42,13 +42,13 @@ public class LoginServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/";
+      String urlToRedirectToAfterUserLogsOut = "/templates/comments.html";
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
 
       response.getWriter().println("<p>Hello " + userEmail + "!</p>");
       response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/";
+      String urlToRedirectToAfterUserLogsIn = "/templates/comments.html";
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
       response.getWriter().println("<p>Hello stranger.</p>");

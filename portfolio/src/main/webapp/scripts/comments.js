@@ -65,6 +65,7 @@ function createDeleteButton(commentElement, comment) {
 	const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.setAttribute("id", "delete-button");
+  deleteButtonElement.setAttribute("class", "submit-button"); 
   deleteButtonElement.addEventListener('click', () => {
 	deleteComment(comment); // deletes the comment from datastore 
     commentElement.remove(); // remove the comment from the DOM.
@@ -95,13 +96,3 @@ function millisToTime(timestamp) {
   seconds = (seconds < 10) ? "0" + seconds : seconds;
   return hours + ":" + minutes + ":" + seconds;
 }
-
-/**
- * Shows feedback on login status
- */
-async function showCommentFeedback() {
-const response = await fetch('/create-new-comment');
-const loginStatus = await response.text();
-document.getElementById('login-feedback').innerText = loginStatus;
-}
-

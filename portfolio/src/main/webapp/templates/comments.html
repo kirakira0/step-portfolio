@@ -6,26 +6,30 @@
     <link rel="stylesheet" href="../styles/comments.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
   </head>
-  <body onload="showCommentFeedback(); postComment()">
+  <body onload="showCommentFeedback(); updateLoginStatusOnButton(); postComment()">
     <header class="header">
       <h2>Contact</h2>
     </header>
     <div id="comment-section">
       <div id="input-area">
-        <form id="form" autocomplete="off" action="/create-new-comment" method="POST">
+        <div class="centering-container">
           <img id="img1" src="../images/CommentImg1.png"/>
-          <p id="contact-info">
-            To contact Kira with questions or suggestions for this page (or horror movie recommendations), 
-            send her an email at ktoal@google.com. You may also leave a comment using the form below.
-          </p>
-          <button id="login-button">Login/Out</button>
-          <p id="login-feedback">TEXT</p>
+        </div> 
+        <p id="contact-info">
+          To contact Kira with questions or suggestions for this page (or horror movie recommendations), 
+          send her an email at ktoal@google.com. You may also leave a comment using the form below.
+        </p>
+        <p id="login-feedback">TEXT</p>
+        <div class="centering-container">
+          <button id="login-button" class="submit-button" onclick="redirectToLoginPage()">Login/Out</button>
+        </div>
+        <form id="form" autocomplete="off" action="/create-new-comment" method="POST">
           <p>Name:</p>
           <input type="text-input" name="username">
           <p>Leave a comment:</p>
           <input type="text-input" name="comment">
           <p></p>
-          <input id="submit-comment" type="submit" value="Submit">
+          <input id="submit-comment" class="submit-button" type="submit" value="Submit">
         </form> 
       </div>
       <div id="output-area">
@@ -40,5 +44,6 @@
       </footer>
     </div> 
     <script src="../scripts/comments.js"></script> 
+    <script src="../scripts/login.js"></script> 
   </body>
 </html>
