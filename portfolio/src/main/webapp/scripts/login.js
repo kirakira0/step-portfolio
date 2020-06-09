@@ -13,7 +13,6 @@ async function showCommentFeedback() {
 async function updateLoginStatusOnButton() {
   const response = await fetch('/check-login-status');
   const loginStatus = await response.text();
-  // const loginButton = document.getElementById('login-button');
   document.getElementById('login-button').innerText = loginStatus;
 }
 
