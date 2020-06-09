@@ -48,9 +48,9 @@ public class ListComments extends HttpServlet {
     int limit = 5; 
     if (request.getParameter("limit") != null) {
       try {
-        limit = Integer.parseInt(request.getParameter("limit")); 
-        if (limit < 1) {limit = 1;} 
-        if (limit > 50) {limit = 50;}
+        limit = Integer.parseInt(request.getParameter("limit"));
+        limit = java.lang.Math.max(limit, 1); //set min limit to 1
+        limit = java.lang.Math.min(limit, 50); //set max limit to 50 
       } catch (NumberFormatException e) {
         System.err.println(request.getParameter("limit") + "is not an integer");
       }
@@ -59,7 +59,6 @@ public class ListComments extends HttpServlet {
     List<Entity> limitedResults = results.asList(FetchOptions.Builder.withLimit(limit));
     List<Comment> listOfComments = new ArrayList<>();
     for (Entity entity : limitedResults) {
-      // Comment comment = Comment.convertToComment(entity); // convert from entity to comment object
       Comment comment = new Comment(entity); 
       listOfComments.add(comment);
     }
