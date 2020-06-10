@@ -16,9 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet responsible for deleting tasks. */
-@WebServlet("/delete-comment-data")
-public class DeleteCommentData extends HttpServlet {
+/*
+ * Servlet responsible for deleting comments 
+ */
+@WebServlet("/delete-comment")
+public class DeleteComment extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

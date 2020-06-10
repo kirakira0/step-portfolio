@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <title>Kira's Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../styles/home.css">
   </head>
-  <body onload="postComment()">
+  <body>
     <div id="content">
       <div id="images-parent">
         <img id="me-pic" src="images/Me.jpeg" />
@@ -62,35 +62,24 @@
       </nav>
     </div>
     <div id="extra-content">
-        <section id="movie-recommendation">
-            <p id="recommend" onclick="recommendMovie()"> Recommend</p>
-            <p id="filler-text"> me a </p>
-            <select id="subgenres">
-                <option value="spn" id="supernatural" onclick="recommendMovie()">supernatural horror movie</option>
-                <option value="non-spn" id="non-supernatural" onclick="recommendMovie()">non-supernatural horror movie</option>
-            </select>
-            <div id="result-parent">
-                <p id="result"> <i>result ...</i> </p>
-            </div> 
-        </section>
-        <div id="creepy-images">
-        <a href="https://www.viz.com/junji-ito" target="_blank"><img class="ito-images" src="images/Ito1.jpg" /></a>
-        <a href="https://store.steampowered.com/app/913740/WORLD_OF_HORROR/" target="_blank"><img class="ito-images" src="images/Ito2.jpg"/></a>
-        <a href="http://www.craigdavidson.net/nickcutter/index.html" target="_blank"><img class="ito-images" src="images/Ito3.jpg"/></a>
-        </div>
+			<section id="movie-recommendation">
+				<p id="recommend" onclick="recommendMovie()"> Recommend</p>
+				<p id="filler-text"> me a </p>
+				<select id="subgenres">
+					<option value="spn" id="supernatural" onclick="recommendMovie()">supernatural horror movie</option>
+					<option value="non-spn" id="non-supernatural" onclick="recommendMovie()">non-supernatural horror movie</option>
+				</select>
+				<div id="result-parent">
+					<p id="result"> <i>result ...</i> </p>
+				</div> 
+			</section>
+			<div id="creepy-images">
+			<a href="https://www.viz.com/junji-ito" target="_blank"><img class="ito-images" src="images/Ito1.jpg" /></a>
+			<a href="https://store.steampowered.com/app/913740/WORLD_OF_HORROR/" target="_blank"><img class="ito-images" src="images/Ito2.jpg"/></a>
+			<a href="http://www.craigdavidson.net/nickcutter/index.html" target="_blank"><img class="ito-images" src="images/Ito3.jpg"/></a>
+			</div>
     </div>
-    <div id="comment-section">
-    <h2>Comment section</h2>
-    <form id="form" autocomplete="off" action="/data" method="POST">
-        <label for="comment">Leave a comment here:</label>
-        <input type="text-input" name="comment" >
-        <!-- <label for="max-comments">Comments to display:</label>  -->
-        <!-- <input type="number" name="max-comments" min="1" max="50" value="1"> -->
-        <input type="submit" value="Submit">
-    </form> 
-    <ul id="comment-display"></ul>
-    </div> 
-    <script src="comments.js"></script> 
-    <script src="script.js"></script>
+    <a href="templates/comments.html" target="_blank"><h1>Comment Section</h1></a>
+    <script src="../scripts/home.js"></script>
   </body>
 </html>

@@ -1,0 +1,17 @@
+body {
+  background-color: white;
+  padding: 5%; 
+}
+
+#comment-section {
+  display: grid; 
+  grid-template-columns: 50% 50%;
+}
+
+#input-area {
+  grid-column-start: 1;
+}
+
+#output-area {
+  grid-column-start: 2;
+}

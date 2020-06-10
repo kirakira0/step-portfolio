@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 public class Comment {
+
   private long id;
   private String username;
   private String content;
@@ -17,29 +18,21 @@ public class Comment {
     this.timestamp = timestamp;
   }
 
-  public static Comment convertToComment(Entity entity) {
-    long id = entity.getKey().getId();
-    String username = (String) entity.getProperty("username");
-    String content = (String) entity.getProperty("content");
-    long timestamp = (long) entity.getProperty("timestamp");
-    Comment comment = new Comment(id, username, content, timestamp);
-    return comment;
+  public Comment(Entity entity) {
+    this.id = entity.getKey().getId();
+    this.username = (String) entity.getProperty("username");
+    this.content = (String) entity.getProperty("content");
+    this.timestamp = (long) entity.getProperty("timestamp");
   }
 
-  /**
-   * Converts comments instance into a JSON string using the Gson library. 
-   */
-  public static String convertToJson(List<Comment> comments) {
-    Gson gson = new Gson();
-    String json = gson.toJson(comments);
-    return json;
-  }
-
-  public static Entity createNewCommentEntity(String content) {
+  public static Entity createNewCommentEntity(String username, String content) {
     Entity commentEntity = new Entity("Comment");
-    //TODO: LET USERS SET THEIR OWN NAMES
-    commentEntity.setProperty("username", "TEST NAME");
-    commentEntity.setProperty("content", content);
+    // set username 
+    if (username.isBlank()) { commentEntity.setProperty("username", "ANONYMOUS"); } // if blank username
+    else { commentEntity.setProperty("username", username); }
+    // set comment content
+    if (content.isBlank()) { commentEntity.setProperty("content", "The webpage was so cool, this user was left speechless!"); }
+    else { commentEntity.setProperty("content", content); }
     commentEntity.setProperty("timestamp", System.currentTimeMillis());
     return commentEntity;
   }

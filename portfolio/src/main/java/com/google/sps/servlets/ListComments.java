@@ -1,3 +1,4 @@
+
 // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,28 +15,28 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.Query;
 import com.google.gson.Gson;
+import com.google.sps.servlets.models.Comment;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.Math;
+import java.util.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
 
-import com.google.sps.servlets.models.Comment;
-
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
+/*
+ * Servlet responsible for generating a list of comments
+ */ 
+@WebServlet("/list-comments")
+public class ListComments extends HttpServlet {
 
   private List<String> comments;
 
@@ -49,33 +50,36 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
+    int limit = 5; 
+    if (request.getParameter("limit") != null) {
+      try {
+        limit = Integer.parseInt(request.getParameter("limit"));
+        limit = Math.max(limit, 1); //set min limit to 1
+        limit = Math.min(limit, 50); //set max limit to 50 
+      } catch (NumberFormatException e) {
+        System.err.println(request.getParameter("limit") + "is not an integer");
+      }
+    }
+    
+    List<Entity> limitedResults = results.asList(FetchOptions.Builder.withLimit(limit));
     List<Comment> listOfComments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
-      Comment comment = Comment.convertToComment(entity);
+    for (Entity entity : limitedResults) {
+      Comment comment = new Comment(entity); 
       listOfComments.add(comment);
     }
 
-    String json = Comment.convertToJson(listOfComments);
+    String json = convertToJson(listOfComments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
 
-
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String commentContent = request.getParameter("comment"); // get the comment from the form
-
-    response.setContentType("text/html"); // set response type
-
-    // TODO: PROHIBIT BLANK COMMENTS
-    Entity commentEntity = Comment.createNewCommentEntity(commentContent);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
-    datastore.put(commentEntity);
-    doGet(request, response);	
-    
-    response.sendRedirect("/index.html"); // redirect back to the HTML page
+  /**
+   * Converts comments instance into a JSON string using the Gson library. 
+   */
+  public String convertToJson(List<Comment> comments) {
+    Gson gson = new Gson();
+    String json = gson.toJson(comments);
+    return json;
   }
-
-
+  
 }
