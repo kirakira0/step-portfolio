@@ -42,7 +42,6 @@ public class CreateNewComment extends HttpServlet {
     Entity commentEntity = Comment.createNewCommentEntity(username, commentContent);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
     datastore.put(commentEntity);
-    
-    // response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
   }
+  
 }
