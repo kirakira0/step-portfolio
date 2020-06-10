@@ -6,30 +6,36 @@
     <link rel="stylesheet" href="../styles/comments.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
   </head>
-  <body onload="postComment()">
+  <body onload="showCommentFeedback(); updateLoginStatusOnButton(); getCommentList()">
     <header class="header">
       <h2>Contact</h2>
     </header>
     <div id="comment-section">
       <div id="input-area">
-        <form id="form" autocomplete="off" action="/create-new-comment" method="POST">
+        <div class="centering-container">
           <img id="img1" src="../images/CommentImg1.png"/>
-          <p id="contact-info">
-            To contact Kira with questions or suggestions for this page (or horror movie recommendations), 
-            send her an email at ktoal@google.com. You may also leave a comment using the form below.
-          </p>
-          <p>Name:</p>
-          <input type="text-input" name="username">
-          <p>Leave a comment:</p>
-          <input type="text-input" name="comment">
+        </div> 
+        <p id="contact-info">
+          To contact Kira with questions or suggestions for this page (or horror movie recommendations), 
+          send her an email at ktoal@google.com. You may also leave a comment using the form below.
+        </p>
+        <p id="login-feedback">TEXT</p>
+        <div class="centering-container">
+          <button id="login-button" class="submit-button" onclick="redirectToLoginPage()">Login/Out</button>
+        </div>
+        <form id="form" autocomplete="off" >
+				  <label for="username">Name:</label>
+				  <input type="text-input" name="username" id="username">
+				  <label for="comment">Leave a comment here:</label>
+				  <input type="text-input" name="comment" id="comment">
           <p></p>
-          <input id="submit-comment" type="submit" value="Submit">
-        </form> 
+				  <input onclick="addComment()" type="submit" value="Submit" id="submit-comment" class="submit-button">
+    	  </form> 
       </div>
       <div id="output-area">
         <label for="number-comments">Maximum number of comments to display:</label> 
         <input type="number" name="number-comments" id="number-comments" min="1" max="50" value="5">
-        <ul id="comment-display"></ul>
+        <div id="comment-display"></div>
       </div>
       <footer class="footer">
         <a href="../index.html"><p>About</p></a>
@@ -38,5 +44,6 @@
       </footer>
     </div> 
     <script src="../scripts/comments.js"></script> 
+    <script src="../scripts/login.js"></script> 
   </body>
 </html>

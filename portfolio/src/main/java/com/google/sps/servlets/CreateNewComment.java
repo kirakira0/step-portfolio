@@ -26,20 +26,22 @@ import java.util.*;
 import com.google.gson.Gson;
 import com.google.sps.servlets.models.Comment;
 
+/*
+ * Servlet responsible for creating new comments 
+ */
 @WebServlet("/create-new-comment")
 public class CreateNewComment extends HttpServlet {  
   
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String username = request.getParameter("username"); // get the username from the form
-    String commentContent = request.getParameter("comment"); // get the comment from the form
+    String username = request.getParameter("username"); 
+    String commentContent = request.getParameter("comment"); 
 
     response.setContentType("text/html"); // set response type
 
     Entity commentEntity = Comment.createNewCommentEntity(username, commentContent);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
     datastore.put(commentEntity);
-    
-    response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
   }
+  
 }

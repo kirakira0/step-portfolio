@@ -29,7 +29,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import com.google.gson.Gson;
 import com.google.sps.servlets.models.Comment;
+import java.lang.Math;
 
+/*
+ * Servlet responsible for generating a list of comments
+ */ 
 @WebServlet("/list-comments")
 public class ListComments extends HttpServlet {
 
@@ -48,22 +52,33 @@ public class ListComments extends HttpServlet {
     int limit = 5; 
     if (request.getParameter("limit") != null) {
       try {
-        limit = Integer.parseInt(request.getParameter("limit")); 
-        if (limit < 1) {limit = 1;} 
+        limit = Integer.parseInt(request.getParameter("limit"));
+        limit = Math.max(limit, 1); //set min limit to 1
+        limit = Math.min(limit, 50); //set max limit to 50 
       } catch (NumberFormatException e) {
         System.err.println(request.getParameter("limit") + "is not an integer");
       }
     }
     
-	  List<Entity> limitedResults = results.asList(FetchOptions.Builder.withLimit(limit));
+    List<Entity> limitedResults = results.asList(FetchOptions.Builder.withLimit(limit));
     List<Comment> listOfComments = new ArrayList<>();
     for (Entity entity : limitedResults) {
-      Comment comment = Comment.convertToComment(entity); // convert from entity to comment object
+      Comment comment = new Comment(entity); 
       listOfComments.add(comment);
     }
 
-    String json = Comment.convertToJson(listOfComments);
+    String json = convertToJson(listOfComments);
     response.setContentType("application/json;");
     response.getWriter().println(json);
   }
+
+  /**
+   * Converts comments instance into a JSON string using the Gson library. 
+   */
+  public String convertToJson(List<Comment> comments) {
+    Gson gson = new Gson();
+    String json = gson.toJson(comments);
+    return json;
+  }
+  
 }
