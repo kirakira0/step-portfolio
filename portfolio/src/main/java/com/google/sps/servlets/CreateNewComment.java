@@ -28,7 +28,9 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.sps.servlets.models.Comment;
 
-/** Servlet responsible for creating new comments */
+/*
+ * Servlet responsible for creating new comments 
+ */
 @WebServlet("/create-new-comment")
 public class CreateNewComment extends HttpServlet {  
 
@@ -49,12 +51,17 @@ public class CreateNewComment extends HttpServlet {
   
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+<<<<<<< HEAD
     
     // Only logged-in users can add a comment
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String username = request.getParameter("username"); // get the username from the form
       String commentContent = request.getParameter("comment"); // get the comment from the form
+=======
+    String username = request.getParameter("username"); 
+    String commentContent = request.getParameter("comment"); 
+>>>>>>> 562595bef3a72bc48551e56a7815ae7c183d60f2
 
       response.setContentType("text/html"); // set response type
 
@@ -67,5 +74,12 @@ public class CreateNewComment extends HttpServlet {
       response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
     }
 
+<<<<<<< HEAD
+=======
+    Entity commentEntity = Comment.createNewCommentEntity(username, commentContent);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
+    datastore.put(commentEntity);
+>>>>>>> 562595bef3a72bc48551e56a7815ae7c183d60f2
   }
+  
 }

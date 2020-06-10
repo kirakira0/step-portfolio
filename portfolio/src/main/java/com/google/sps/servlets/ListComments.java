@@ -1,3 +1,4 @@
+
 // Copyright 2019 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +30,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import com.google.gson.Gson;
 import com.google.sps.servlets.models.Comment;
+import java.lang.Math;
 
+/*
+ * Servlet responsible for generating a list of comments
+ */ 
 @WebServlet("/list-comments")
 public class ListComments extends HttpServlet {
 
@@ -49,8 +54,8 @@ public class ListComments extends HttpServlet {
     if (request.getParameter("limit") != null) {
       try {
         limit = Integer.parseInt(request.getParameter("limit"));
-        limit = java.lang.Math.max(limit, 1); //set min limit to 1
-        limit = java.lang.Math.min(limit, 50); //set max limit to 50 
+        limit = Math.max(limit, 1); //set min limit to 1
+        limit = Math.min(limit, 50); //set max limit to 50 
       } catch (NumberFormatException e) {
         System.err.println(request.getParameter("limit") + "is not an integer");
       }
