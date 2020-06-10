@@ -5,16 +5,16 @@
     <title>Comment Section</title>
     <link rel="stylesheet" href="../styles/comments.css">
   </head>
-  <body onload="postComment()">
+  <body onload="getCommentList()">
 	<div id="comment-section">
     <div id="input-area>">
     	<h2>Comment section</h2>
-    	<form id="form" autocomplete="off" action="/create-new-comment" method="POST">
+      <form id="form" autocomplete="off" >
 				<label for="username">Name:</label>
-				<input type="text-input" name="username">
+				<input type="text-input" name="username" id="username">
 				<label for="comment">Leave a comment here:</label>
-				<input type="text-input" name="comment">
-				<input type="submit" value="Submit">
+				<input type="text-input" name="comment" id="comment">
+				<input onclick="addComment()" type="submit" value="Submit">
     	</form> 
 		</div>
 		<div id="output-area">
