@@ -17,14 +17,14 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.gson.Gson;
+import com.google.sps.servlets.models.Comment;
 import java.io.IOException;
+import java.util.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
-import com.google.gson.Gson;
-import com.google.sps.servlets.models.Comment;
 
 /*
  * Servlet responsible for creating new comments 
@@ -43,5 +43,5 @@ public class CreateNewComment extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
     datastore.put(commentEntity);
   }
-  
+
 }
