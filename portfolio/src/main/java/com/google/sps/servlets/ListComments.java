@@ -30,6 +30,9 @@ import java.util.*;
 import com.google.gson.Gson;
 import com.google.sps.servlets.models.Comment;
 
+/*
+ * Servlet responsible for generating a list of comments
+ */ 
 @WebServlet("/list-comments")
 public class ListComments extends HttpServlet {
 

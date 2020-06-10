@@ -26,7 +26,9 @@ import java.util.*;
 import com.google.gson.Gson;
 import com.google.sps.servlets.models.Comment;
 
-/** Servlet responsible for creating new comments */
+/*
+ * Servlet responsible for creating new comments 
+ */
 @WebServlet("/create-new-comment")
 public class CreateNewComment extends HttpServlet {  
   
