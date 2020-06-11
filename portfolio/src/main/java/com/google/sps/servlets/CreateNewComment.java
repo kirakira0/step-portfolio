@@ -17,16 +17,16 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.Gson;
+import com.google.sps.servlets.models.Comment;
 import java.io.IOException;
+import java.util.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
-import com.google.gson.Gson;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
-import com.google.sps.servlets.models.Comment;
 
 /*
  * Servlet responsible for creating new comments 
@@ -36,9 +36,7 @@ public class CreateNewComment extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Only logged-in users can add a comment
     response.setContentType("text/html"); // set response type
-
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
       String userEmail = userService.getCurrentUser().getEmail();
@@ -51,35 +49,16 @@ public class CreateNewComment extends HttpServlet {
   
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-<<<<<<< HEAD
-    
     // Only logged-in users can add a comment
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
-      String username = request.getParameter("username"); // get the username from the form
-      String commentContent = request.getParameter("comment"); // get the comment from the form
-=======
-    String username = request.getParameter("username"); 
-    String commentContent = request.getParameter("comment"); 
->>>>>>> 562595bef3a72bc48551e56a7815ae7c183d60f2
-
-      response.setContentType("text/html"); // set response type
-
+      String username = request.getParameter("username"); 
+      String commentContent = request.getParameter("comment"); 
+      response.setContentType("text/html"); 
       Entity commentEntity = Comment.createNewCommentEntity(username, commentContent);
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
       datastore.put(commentEntity);
-
-      response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
-    } else {
-      response.sendRedirect("templates/comments.html"); // redirect back to the HTML page
-    }
-
-<<<<<<< HEAD
-=======
-    Entity commentEntity = Comment.createNewCommentEntity(username, commentContent);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
-    datastore.put(commentEntity);
->>>>>>> 562595bef3a72bc48551e56a7815ae7c183d60f2
+    } 
   }
   
 }
