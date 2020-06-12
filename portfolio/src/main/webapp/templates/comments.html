@@ -24,13 +24,28 @@
           <button id="login-button" class="submit-button" onclick="redirectToLoginPage()">Login/Out</button>
         </div>
         <form id="form" autocomplete="off" >
-				  <label for="username">Name:</label>
-				  <input type="text-input" name="username" id="username">
-				  <label for="comment">Leave a comment here:</label>
-				  <input type="text-input" name="comment" id="comment">
+          <label for="username">Name:</label>
+          <input type="text-input" name="username" id="username">
+          <label for="comment">Leave a comment here:</label>
+          <input type="text-input" name="comment" id="comment">
           <p></p>
-				  <input onclick="addComment()" type="submit" value="Submit" id="submit-comment" class="submit-button">
-    	  </form> 
+          <input onclick="addComment()" type="submit" value="Submit" id="submit-comment" class="submit-button">
+        </form> 
+        <div id="piechart" style="width: 900px; height: 500px; grid-column-start: 2;"></div>
+        <div id="survey">
+          <div id="options-container">
+            <!-- <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label><br>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label> -->
+          </div> 
+          <p> </p>
+          <div class="centering-container">
+            <button id="submit-survey" class="submit-button">Submit</button>
+          </div> 
+        </div>
       </div>
       <div id="output-area">
         <label for="number-comments">Maximum number of comments to display:</label> 
@@ -45,5 +60,7 @@
     </div> 
     <script src="../scripts/comments.js"></script> 
     <script src="../scripts/login.js"></script> 
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="../scripts/survey.js"></script> 
   </body>
 </html>
