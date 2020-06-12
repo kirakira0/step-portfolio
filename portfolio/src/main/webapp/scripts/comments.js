@@ -22,7 +22,6 @@ numberOfCommentsForm.addEventListener('change', e => {
  * servlet. 
  */ 
 function addComment() {
-  console.log("IN ADD COMMENT"); 
   const params = new URLSearchParams(); 
   params.append('username', document.getElementById("username").value); 
   params.append('comment', document.getElementById("comment").value); 
