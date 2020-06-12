@@ -43,5 +43,5 @@ public class CreateNewComment extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
     datastore.put(commentEntity);
   }
-  
+
 }
