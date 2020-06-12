@@ -4,7 +4,7 @@ const suggestion = 'Try checking your internet connection and refreshing your pa
  * Changes the number of comments visible on the page
  */
 const numberOfCommentsForm = document.querySelector("#number-comments"); 
-  numberOfCommentsForm.addEventListener('change', e => {
+    numberOfCommentsForm.addEventListener('change', e => {
     const commentsContainer = document.getElementById('comment-display');
     commentsContainer.innerHTML = ""; 
     var limit = numberOfCommentsForm.value; 
