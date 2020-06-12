@@ -68,10 +68,10 @@ async function getCommentList() {
  */
 function displayComment(comment) {
 
-	const commentsContainer = document.getElementById('comment-display');
-	const commentElement = document.createElement('div'); // create the comment element
+  const commentsContainer = document.getElementById('comment-display');
+  const commentElement = document.createElement('div'); // create the comment element
   commentElement.setAttribute("id", "comment-element");
-  
+
   const date = new Date(comment.timestamp).toDateString(); // converts timestamp to readable string
   const time = millisToTime(comment.timestamp);
 
@@ -82,9 +82,8 @@ function displayComment(comment) {
   const content = document.createElement('p'); // content p 
   setChild(commentElement, content, "content", comment.content);
   createDeleteButton(commentElement, comment); // delete button
-	
-  commentsContainer.appendChild(commentElement);
 
+  commentsContainer.appendChild(commentElement);
 }
 
 /**
@@ -100,12 +99,12 @@ function setChild(commentElement, elementName, id, content) {
  * Create delete button
  */
 function createDeleteButton(commentElement, comment) {
-	const deleteButtonElement = document.createElement('button');
+  const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.setAttribute("id", "delete-button");
   deleteButtonElement.setAttribute("class", "submit-button"); 
   deleteButtonElement.addEventListener('click', () => {
-	deleteComment(comment); // deletes the comment from datastore 
+    deleteComment(comment); // deletes the comment from datastore 
     commentElement.remove(); // remove the comment from the DOM.
   });
   deleteButtonElement.addEventListener('click', () => { deleteComment(comment); }); // deletes the comment from datastore 
