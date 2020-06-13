@@ -25,7 +25,6 @@ function addComment() {
   const params = new URLSearchParams(); 
   params.append('username', document.getElementById("username").value); 
   params.append('comment', document.getElementById("comment").value); 
-  console.log('Params:' + params); 
   fetch('/create-new-comment', {
     method: 'POST',
     body: params
