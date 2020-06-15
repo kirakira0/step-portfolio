@@ -4,17 +4,17 @@ body {
 }
 
 .header {
-  display: flex;
-  flex-direction: row; 
-  justify-content: center;
-  align-items: center; 
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
+  align-items: center;
   background-color: black;
   color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  left: 0;
+  position: absolute;
   text-align: center;
+  top: 0;
+  width: 100%;
 }
 
 #comment-section {
@@ -57,17 +57,17 @@ body {
 }
 
 .footer {
-  display: flex;
-  flex-direction: row; 
-  justify-content: center;
-  align-items: center; 
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+  align-items: center;
   background-color: black;
+  bottom: 0;
   color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  left: 0;
+  position: fixed;
   text-align: center;
+  width: 100%;
 }
 
 a {
@@ -107,14 +107,14 @@ a {
 }
 
 #delete-button {
+  background-color: white;
+  color: black;
   grid-column: 2;
   grid-row: 3;
-  width: 40%;
   height: 60%;
-  background-color: white;
-  color: black;  
-  transition: all 1s ease;  
   margin-left: 50%;
+  transition: all 1s ease;
+  width: 40%;
 }
 
 #delete-button:hover {
