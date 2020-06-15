@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Kira's Portfolio</title>
     <link rel="stylesheet" href="../styles/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="content">
@@ -26,60 +27,63 @@
           more about me!
       </p>
       <nav id="sections-parent">
-          <ul class="sections">
-              <li data-message="Video games have been an important part of my 
-              life since I was very young, so I started teaching myself how to code 
-              when I was 14 so that I could create my own games. I began working in 
-              GameMaker (GML), then transitioned to Unity (C# and Javascript), and 
-              eventually started taking formal classes through Northwestern and USC
-              when I realised how much I enjoyed it!">
-                  Background
-              </li>
-              <li data-message="Python, C#, Javascript, HTML, CSS, Java, C, and
-              Assembly.">
-                  Languages
-              </li>
-               <li data-message="Unity, Visual Studio, Git, Google App Engine, Adobe 
-              Photoshop, Adobe After Effects, and Firebase. ">
-                  Technologies
-              </li>
-              <li data-message="In my spare time, I enjoy writing, drawing, and programming 
-              (often, these three culminate in the form of small video games.) I also really enjoy 
-              music and can play the piano and the kalimba (which is a wooden African thumb piano). 
-              Additionally, I like to be active, so I love playing water polo, softball, or simply
-              going for a hike with my dogs.">
-                Hobbies
-              </li>
-              <li data-message="I absolutely adore horror movies (some of my favorites include 
-              Hereditary, It Follows, The Exorcist, The Shining, and Midsommar), horror video games, 
-              horror manga and books … pretty much anything related to my favorite genre! I also enjoy 
-              learning languages, and am currently studying Japanese in university and learning some 
-              Russian and ASL from my mother in my spare time.">
-                Interests
-              </li>
-              <li id="secret-text">???</li> 
-          </ul>
+        <ul class="sections">
+          <li data-message="Video games have been an important part of my 
+          life since I was very young, so I started teaching myself how to code 
+          when I was 14 so that I could create my own games. I began working in 
+          GameMaker (GML), then transitioned to Unity (C# and Javascript), and 
+          eventually started taking formal classes through Northwestern and USC
+          when I realised how much I enjoyed it!">
+            Background
+          </li>
+          <li data-message="Python, C#, Javascript, HTML, CSS, Java, C, and Assembly.">
+            Languages
+          </li>
+          <li data-message="Unity, Visual Studio, Git, Google App Engine, Adobe 
+          Photoshop, Adobe After Effects, and Firebase. ">
+            Technologies
+          </li>
+          <li data-message="In my spare time, I enjoy writing, drawing, and programming 
+          (often, these three culminate in the form of small video games.) I also really enjoy 
+          music and can play the piano and the kalimba (which is a wooden African thumb piano). 
+          Additionally, I like to be active, so I love playing water polo, softball, or simply
+          going for a hike with my dogs.">
+            Hobbies
+          </li>
+          <li data-message="I absolutely adore horror movies (some of my favorites include 
+          Hereditary, It Follows, The Exorcist, The Shining, and Midsommar), horror video games, 
+          horror manga and books … pretty much anything related to my favorite genre! I also enjoy 
+          learning languages, and am currently studying Japanese in university and learning some 
+          Russian and ASL from my mother in my spare time.">
+            Interests
+          </li>
+          <li id="secret-text">???</li> 
+        </ul>
       </nav>
     </div>
     <div id="extra-content">
-			<section id="movie-recommendation">
-				<p id="recommend" onclick="recommendMovie()"> Recommend</p>
-				<p id="filler-text"> me a </p>
-				<select id="subgenres">
-					<option value="spn" id="supernatural" onclick="recommendMovie()">supernatural horror movie</option>
-					<option value="non-spn" id="non-supernatural" onclick="recommendMovie()">non-supernatural horror movie</option>
-				</select>
-				<div id="result-parent">
-					<p id="result"> <i>result ...</i> </p>
-				</div> 
-			</section>
-			<div id="creepy-images">
-			<a href="https://www.viz.com/junji-ito" target="_blank"><img class="ito-images" src="images/Ito1.jpg" /></a>
-			<a href="https://store.steampowered.com/app/913740/WORLD_OF_HORROR/" target="_blank"><img class="ito-images" src="images/Ito2.jpg"/></a>
-			<a href="http://www.craigdavidson.net/nickcutter/index.html" target="_blank"><img class="ito-images" src="images/Ito3.jpg"/></a>
-			</div>
+    <section id="movie-recommendation">
+      <p id="recommend" onclick="recommendMovie()"> Recommend</p>
+      <p id="filler-text"> me a </p>
+      <select id="subgenres">
+        <option value="spn" id="supernatural" onclick="recommendMovie()">supernatural horror movie</option>
+        <option value="non-spn" id="non-supernatural" onclick="recommendMovie()">non-supernatural horror movie</option>
+      </select>
+      <div id="result-parent">
+	<p id="result"> <i>result ...</i> </p>
+      </div> 
+    </section>
+    <div id="creepy-images">
+    <a href="https://www.viz.com/junji-ito" target="_blank"><img class="ito-images" src="images/Ito1.jpg" /></a>
+    <a href="https://store.steampowered.com/app/913740/WORLD_OF_HORROR/" target="_blank"><img class="ito-images" src="images/Ito2.jpg"/></a>
+    <a href="http://www.craigdavidson.net/nickcutter/index.html" target="_blank"><img class="ito-images" src="images/Ito3.jpg"/></a>
     </div>
-    <a href="templates/comments.html" target="_blank"><h1>Comment Section</h1></a>
+    </div>
+    <footer class="footer">
+      <a href="index.html"><p>About</p></a>
+      <p>&#x2609;</p>
+      <a target="_self" href="templates/comments.html"><p>Contact</p></a>
+    </footer>
     <script src="../scripts/home.js"></script>
   </body>
 </html>

@@ -13,7 +13,7 @@ numberOfCommentsForm.addEventListener('change', e => {
       displayComment(comment); 
     }) 
   }).catch(err => {
-      alert("Error in network call."); 
+    alert("Error in network call."); 
   })
 })
 
@@ -22,11 +22,9 @@ numberOfCommentsForm.addEventListener('change', e => {
  * servlet. 
  */ 
 function addComment() {
-  console.log("IN ADD COMMENT"); 
   const params = new URLSearchParams(); 
   params.append('username', document.getElementById("username").value); 
   params.append('comment', document.getElementById("comment").value); 
-  console.log('Params:' + params); 
   fetch('/create-new-comment', {
     method: 'POST',
     body: params
@@ -43,7 +41,7 @@ function deleteComment(comment) {
   const params = new URLSearchParams(); 
   params.append('id', comment.id);
   fetch('/delete-comment', {method: 'POST', body: params}).catch(err => {
-      alert("Error in network call."); 
+    alert("Error in network call."); 
   })
   getCommentList(); 
 }
@@ -66,20 +64,49 @@ async function getCommentList() {
 }
 
 /**
- * Adds a comment element to the DOM
+ * Constructs comment element and adds it to the DOM
  */
 function displayComment(comment) {
-	const commentsContainer = document.getElementById('comment-display');
-  // create the comment element
-	const commentElement = document.createElement('div');
-  // converts timestamp to readable string
-  const date = new Date(comment.timestamp).toDateString();
+
+  const commentsContainer = document.getElementById('comment-display');
+  const commentElement = document.createElement('div'); // create the comment element
+  commentElement.setAttribute("id", "comment-element");
+
+  const date = new Date(comment.timestamp).toDateString(); // converts timestamp to readable string
   const time = millisToTime(comment.timestamp);
-  commentElement.innerText = `${comment.username} [${time} ${date}]\n${comment.content}`; 
-	commentsContainer.appendChild(commentElement);
-  // create the delete button 
-	const deleteButtonElement = document.createElement('button');
+
+  const username = document.createElement('p'); // username p 
+  setChild(commentElement, username, "username", comment.username);
+  const dateAndTime = document.createElement('p'); // timestamp p 
+  setChild(commentElement, dateAndTime, "date-and-time", `${time} ${date}`); 
+  const content = document.createElement('p'); // content p 
+  setChild(commentElement, content, "content", comment.content);
+  createDeleteButton(commentElement, comment); // delete button
+
+  commentsContainer.appendChild(commentElement);
+}
+
+/**
+ * Sets the child's id and text content and appends it to the parent
+ */
+function setChild(commentElement, elementName, id, content) {
+  elementName.setAttribute("id", id);
+  commentElement.appendChild(elementName);
+  elementName.innerText = content; 
+}
+
+/**
+ * Create delete button
+ */
+function createDeleteButton(commentElement, comment) {
+  const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.setAttribute("id", "delete-button");
+  deleteButtonElement.setAttribute("class", "submit-button"); 
+  deleteButtonElement.addEventListener('click', () => {
+    deleteComment(comment); // deletes the comment from datastore 
+    commentElement.remove(); // remove the comment from the DOM.
+  });
   deleteButtonElement.addEventListener('click', () => { deleteComment(comment); }); // deletes the comment from datastore 
   commentElement.appendChild(deleteButtonElement);
 }
