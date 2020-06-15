@@ -49,12 +49,10 @@ function addVote(option) {
 
 
 google.charts.load('current', {'packages':['corechart']});
-// google.charts.setOnLoadCallback(drawChart);
 /*
  * Fetches subgenre data and uses it to create a chart. 
  */
 async function drawChart() {
-  console.log('drawing chart'); 
   try {
     const response = await fetch('/survey');
     const surveyResponse = await response.json(); 

@@ -24,13 +24,17 @@ import javax.servlet.http.HttpServletResponse;
 public class SurveyServlet extends HttpServlet {
 
   private Map<String, Integer> subgenreToVotes;
+  private List<String> surveyParticipants; 
 
   @Override
   public void init() {
     subgenreToVotes = new HashMap<>(); 
+    surveyParticipants = new ArrayList<>(); 
   }
 
-  // RETURN THE RESULTS OF THE SURVEY
+/*
+ * Return the results of the survey 
+ */ 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
@@ -38,13 +42,16 @@ public class SurveyServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    //TODO: possibly use aggregate query? 
-    List<Entity> resultsList = results.asList(FetchOptions.Builder.withLimit(20)); // TODO: LIMIT??
-    for (Entity entity : resultsList) {
-      // update results hashmap 
-      String subgenre = (String) entity.getProperty("subgenre"); 
-      int currentVotes = subgenreToVotes.containsKey(subgenre) ? subgenreToVotes.get(subgenre) : 0;
-      subgenreToVotes.put(subgenre, currentVotes + 1); 
+    List<Entity> resultsList = results.asList(FetchOptions.Builder.withDefaults());
+
+    UserService userService = UserServiceFactory.getUserService();
+    if (userService.isUserLoggedIn() && !surveyParticipants.contains(userService.getCurrentUser().getEmail())) {
+      for (Entity entity : resultsList) {
+        // update results hashmap 
+        String subgenre = (String) entity.getProperty("subgenre"); 
+        int currentVotes = subgenreToVotes.containsKey(subgenre) ? subgenreToVotes.get(subgenre) : 0;
+        subgenreToVotes.put(subgenre, currentVotes + 1); 
+      }
     }
 
     response.setContentType("application/json");
@@ -53,17 +60,20 @@ public class SurveyServlet extends HttpServlet {
     response.getWriter().println(json); 
   }
 
+/*
+ * Add the user's vote only if they are logged in and have not voted before
+ */ 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
     UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
-
+    if (userService.isUserLoggedIn() && !surveyParticipants.contains(userService.getCurrentUser().getEmail())) {
       Entity voteEntity = new Entity("Vote");
       voteEntity.setProperty("email", userService.getCurrentUser().getEmail()); 
       voteEntity.setProperty("subgenre", request.getParameter("subgenre"));
-      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(voteEntity);
+      surveyParticipants.add(userService.getCurrentUser().getEmail()); 
     } 
     
   }
