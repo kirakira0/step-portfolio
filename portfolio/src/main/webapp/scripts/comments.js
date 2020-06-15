@@ -9,12 +9,10 @@ numberOfCommentsForm.addEventListener('change', e => {
   commentsContainer.innerHTML = ""; 
   var limit = numberOfCommentsForm.value; 
   fetch(`/list-comments?limit=${limit}`).then(response => response.json()).then((comments) => {
-  comments.forEach((comment) => {
-    displayComment(comment); 
+    comments.forEach((comment) => {
+      displayComment(comment); 
     }) 
-  }).catch(err => {
-      alert("Error in network call."); 
-  })
+  }).catch(err => { alert("Error in network call."); })
 })
 
 /*
