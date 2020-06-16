@@ -21,7 +21,7 @@ async function updateLoginStatusOnButton() {
     const loginStatus = await response.text();
     document.getElementById('login-button').innerText = loginStatus;
   } catch {
-    document.getElementById('login-button').innerText = "Log in/out"; 
+    document.getElementById('login-button').innerText = "Log in"; 
   }
 }
 
