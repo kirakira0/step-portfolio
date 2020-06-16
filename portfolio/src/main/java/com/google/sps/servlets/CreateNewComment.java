@@ -58,7 +58,10 @@ public class CreateNewComment extends HttpServlet {
       Entity commentEntity = Comment.createNewCommentEntity(username, commentContent);
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService(); // create instance of DatastoreService class
       datastore.put(commentEntity);
-    } 
+    } else {
+      response.setStatus(401); // 401 specifies unauthorized/unauthenticated  
+      response.sendError(401, "Unauthorized access"); 
+    }
   }
 
 }
