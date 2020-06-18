@@ -1,28 +1,29 @@
 /**
- * Shows feedback on login status
+ * Changes welcome text and login button text based on user login status
  */
-async function showCommentFeedback() {
+async function greetAccordingToLoginStatus() {
   try {
-    const response = await fetch('/create-new-comment');
-    const loginStatus = await response.text();
-    document.getElementById('login-feedback').innerText = loginStatus;
+    const response = await fetch('/check-login-status');
+    const user = await response.json();
+
+    const welcomeText = document.getElementById('welcome-text'); 
+    const loginButton = document.getElementById('login-button'); 
+
+    if (user.map.loggedIn) {
+      const emailAddress = user.map.email; 
+      const name = emailAddress.substring(0, emailAddress.indexOf('@')); 
+      document.getElementById('welcome-text').innerText = `Hello ${name}! ` + 
+        "Now that you're logged in, feel free to leave a comment."; 
+      loginButton.innerText = "Log out"; 
+    } else {
+      document.getElementById('welcome-text').innerText = "Welcome! Please log " +
+        "in to leave a comment."; 
+      loginButton.innerText = "Log in"; 
+    }
   } catch {
     alert('Failed to fetch login status.'); 
   }
 
-}
-
-/**
- * Changes button text to reflect whether user should log in or out
- */
-async function updateLoginStatusOnButton() {
-  try {
-    const response = await fetch('/check-login-status');
-    const loginStatus = await response.text();
-    document.getElementById('login-button').innerText = loginStatus;
-  } catch {
-    document.getElementById('login-button').innerText = "Log in/out"; 
-  }
 }
 
 /**
