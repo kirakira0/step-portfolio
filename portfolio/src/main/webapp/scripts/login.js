@@ -3,9 +3,15 @@
  */
 async function showCommentFeedback() {
   try {
-    const response = await fetch('/create-new-comment');
-    const loginStatus = await response.text();
-    document.getElementById('login-feedback').innerText = loginStatus;
+    const response = await fetch('/check-login-status');
+    const user = await response.json();
+    if (user.map.loggedIn) {
+      const emailAddress = user.map.email; 
+      const name = emailAddress.substring(0, emailAddress.indexOf('@')); 
+      document.getElementById('login-feedback').innerText = `Hello ${name}! Now that you're logged in, feel free to leave a comment.`; 
+    } else {
+      document.getElementById('login-feedback').innerText = 'Please log in to leave a comment.'; 
+    }
   } catch {
     alert('Failed to fetch login status.'); 
   }
@@ -16,12 +22,17 @@ async function showCommentFeedback() {
  * Changes button text to reflect whether user should log in or out
  */
 async function updateLoginStatusOnButton() {
+  const loginButton = document.getElementById('login-button'); 
   try {
     const response = await fetch('/check-login-status');
-    const loginStatus = await response.text();
-    document.getElementById('login-button').innerText = loginStatus;
+    const user = await response.json(); 
+    if (user.map.loggedIn) {
+      loginButton.innerText = "Log out";
+    } else {
+      loginButton.innerText = "Log in";
+    }
   } catch {
-    document.getElementById('login-button').innerText = "Log in"; 
+    loginButton.innerText = "Log in"; 
   }
 }
 

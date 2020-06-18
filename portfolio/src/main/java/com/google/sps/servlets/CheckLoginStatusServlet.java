@@ -6,12 +6,14 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /*
  * Returns the login status of the user
@@ -21,13 +23,21 @@ public class CheckLoginStatusServlet extends HttpServlet {
 
   @Override 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html");
     UserService userService = UserServiceFactory.getUserService();
+
+    JSONObject user = new JSONObject();
+    user.put("loggedIn", userService.isUserLoggedIn());
     if (userService.isUserLoggedIn()) {
-      response.getWriter().println("Log out");   
+      user.put("loggedIn", true);
+      String userEmail = userService.getCurrentUser().getEmail();
+      user.put("email", userEmail);
     } else {
-      response.getWriter().println("Log in"); 
+      user.put("loggedIn", false);
     }
+    
+    response.setContentType("application/json");
+    String json = new Gson().toJson(user);
+    response.getWriter().println(json);
   }
 
 }

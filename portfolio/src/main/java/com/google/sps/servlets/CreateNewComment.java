@@ -33,19 +33,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/create-new-comment")
 public class CreateNewComment extends HttpServlet {  
-
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html"); // set response type
-    UserService userService = UserServiceFactory.getUserService();
-    if (userService.isUserLoggedIn()) {
-      String userEmail = userService.getCurrentUser().getEmail();
-      response.getWriter().println("Hello " + userEmail + "! Now that you're logged in, feel free to leave a comment.");   
-    } else {
-      response.getWriter().println("Please log in to leave a comment.");   
-    }
-  }
-
   
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
