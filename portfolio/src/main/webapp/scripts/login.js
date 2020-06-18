@@ -1,5 +1,5 @@
 /**
- * Shows feedback on login status
+ * Changes welcome text and login button text based on user login status
  */
 async function greetAccordingToLoginStatus() {
   try {
