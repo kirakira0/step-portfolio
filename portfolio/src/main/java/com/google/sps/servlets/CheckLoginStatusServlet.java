@@ -28,12 +28,9 @@ public class CheckLoginStatusServlet extends HttpServlet {
     JSONObject user = new JSONObject();
     user.put("loggedIn", userService.isUserLoggedIn());
     if (userService.isUserLoggedIn()) {
-      user.put("loggedIn", true);
       String userEmail = userService.getCurrentUser().getEmail();
       user.put("email", userEmail);
-    } else {
-      user.put("loggedIn", false);
-    }
+    } 
     
     response.setContentType("application/json");
     String json = new Gson().toJson(user);
