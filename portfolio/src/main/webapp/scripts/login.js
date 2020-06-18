@@ -12,6 +12,7 @@ async function showCommentFeedback() {
     } else {
       document.getElementById('login-feedback').innerText = 'Please log in to leave a comment.'; 
     }
+    updateLoginStatusOnButton(); 
   } catch {
     alert('Failed to fetch login status.'); 
   }
