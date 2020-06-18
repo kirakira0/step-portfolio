@@ -8,9 +8,11 @@ async function showCommentFeedback() {
     if (user.map.loggedIn) {
       const emailAddress = user.map.email; 
       const name = emailAddress.substring(0, emailAddress.indexOf('@')); 
-      document.getElementById('login-feedback').innerText = `Hello ${name}! Now that you're logged in, feel free to leave a comment.`; 
+      document.getElementById('welcome-text').innerText = `Hello ${name}! ` + 
+        "Now that you're logged in,feel free to leave a comment."; 
     } else {
-      document.getElementById('login-feedback').innerText = 'Please log in to leave a comment.'; 
+      document.getElementById('welcome-text').innerText = "Welcome! Please log " +
+        "in to leave a comment."; 
     }
     updateLoginStatusOnButton(); 
   } catch {
