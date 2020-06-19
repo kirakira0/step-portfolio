@@ -65,7 +65,7 @@ public class ListComments extends HttpServlet {
     for (Entity entity : limitedResults) {
       Comment comment = new Comment(entity); 
       listOfComments.add(comment);
-    }
+    } 
 
     String json = convertToJson(listOfComments);
     response.setContentType("application/json;");
