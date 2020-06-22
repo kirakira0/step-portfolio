@@ -1,4 +1,4 @@
-const subgenres = ['Body Horror', 'Slasher', 'Monster', 'Paranormal', 'Psychological Thriller'];
+const SUBGENRES = ['Body Horror', 'Slasher', 'Monster', 'Paranormal', 'Psychological Thriller'];
 const optionsContainer = document.getElementById('options-container');
 createSurvey();
 drawChart(); 
@@ -7,7 +7,7 @@ drawChart();
  * Creates and adds individual option elements to the DOM
  */ 
 function createSurvey() {
-  for (const optionName of subgenres) {
+  for (const optionName of SUBGENRES) {
     let option = document.createElement('input');
     option.setAttribute('type', 'radio'); 
     option.setAttribute('name', 'option');
