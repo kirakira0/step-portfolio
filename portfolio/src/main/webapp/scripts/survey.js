@@ -1,8 +1,6 @@
 const SUBGENRES = ['Body Horror', 'Slasher', 'Monster', 'Paranormal', 'Psychological Thriller'];
 const optionsContainer = document.getElementById('options-container');
 google.charts.load('current', {'packages':['corechart']});
-createSurvey();
-drawChart(); 
 
 /*
  * Creates and adds individual option elements to the DOM
@@ -74,3 +72,6 @@ async function drawChart() {
     alert('There was an error trying to draw the results chart. Please check your internet connection and try refreshing the page.'); 
   }
 }
+
+createSurvey();
+drawChart();
