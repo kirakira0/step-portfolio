@@ -27,7 +27,8 @@ function getUserResponse() {
   let options = document.getElementsByName('option'); 
   for (const option of options) {
     if (option.checked) {
-      addVote(option.value); 
+      addVote(option.value);
+      return;  
     }
   }
 }
