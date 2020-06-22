@@ -37,12 +37,12 @@ public class SurveyServlet extends HttpServlet {
  */ 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {   
-    Query query = new Query("Vote"); // get all of the vote entities
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(query);
-    List<Entity> resultsList = results.asList(FetchOptions.Builder.withDefaults());
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn() && !surveyParticipants.contains(userService.getCurrentUser().getEmail())) {
+      Query query = new Query("Vote"); // get all of the vote entities
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      PreparedQuery results = datastore.prepare(query);
+      List<Entity> resultsList = results.asList(FetchOptions.Builder.withDefaults());
       for (Entity entity : resultsList) {
         // update results hashmap 
         String subgenre = (String) entity.getProperty("subgenre"); 
