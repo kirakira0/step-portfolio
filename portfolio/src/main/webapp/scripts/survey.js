@@ -1,5 +1,6 @@
 const SUBGENRES = ['Body Horror', 'Slasher', 'Monster', 'Paranormal', 'Psychological Thriller'];
 const optionsContainer = document.getElementById('options-container');
+google.charts.load('current', {'packages':['corechart']});
 createSurvey();
 drawChart(); 
 
@@ -48,8 +49,6 @@ function addVote(option) {
   drawChart(); 
 }
 
-
-google.charts.load('current', {'packages':['corechart']});
 /*
  * Fetches subgenre data and uses it to create a chart. 
  */
