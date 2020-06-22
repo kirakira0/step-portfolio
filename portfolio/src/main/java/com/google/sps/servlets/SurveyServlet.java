@@ -36,14 +36,11 @@ public class SurveyServlet extends HttpServlet {
  * Return the results of the survey 
  */ 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {   
     Query query = new Query("Vote"); // get all of the vote entities
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
     List<Entity> resultsList = results.asList(FetchOptions.Builder.withDefaults());
-
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn() && !surveyParticipants.contains(userService.getCurrentUser().getEmail())) {
       for (Entity entity : resultsList) {
@@ -53,7 +50,6 @@ public class SurveyServlet extends HttpServlet {
         subgenreToVotes.put(subgenre, currentVotes + 1); 
       }
     }
-
     response.setContentType("application/json");
     Gson gson = new Gson(); 
     String json = gson.toJson(subgenreToVotes);
@@ -64,8 +60,7 @@ public class SurveyServlet extends HttpServlet {
  * Add the user's vote only if they are logged in and have not voted before
  */ 
   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {  
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn() && !surveyParticipants.contains(userService.getCurrentUser().getEmail())) {
       Entity voteEntity = new Entity("Vote");
@@ -74,8 +69,7 @@ public class SurveyServlet extends HttpServlet {
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(voteEntity);
       surveyParticipants.add(userService.getCurrentUser().getEmail()); 
-    } 
-    
+    }  
   }
 
 }
