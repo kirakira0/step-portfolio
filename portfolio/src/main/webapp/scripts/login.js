@@ -4,7 +4,7 @@
 async function greetAccordingToLoginStatus() {
   try {
     const response = await fetch('/check-login-status');
-    const user = await response.json();
+    const user = response.json();
 
     const welcomeText = document.getElementById('welcome-text'); 
     const loginButton = document.getElementById('login-button'); 
@@ -32,7 +32,7 @@ async function greetAccordingToLoginStatus() {
 async function redirectToLoginPage() {
   try {
     const response = await fetch('/login');
-    const loginStatus = await response.text();
+    const loginStatus = response.text();
     window.location.replace("/login");
   } catch {
     alert('Failed to load login page.'); 

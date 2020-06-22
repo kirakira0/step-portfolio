@@ -53,7 +53,7 @@ function addVote(option) {
 async function drawChart() {
   try {
     const response = await fetch('/survey');
-    const surveyResponse = await response.json(); 
+    const surveyResponse = response.json(); 
     const data = new google.visualization.DataTable();
     data.addColumn('string', 'Subgenre');
     data.addColumn('number', 'Votes'); 

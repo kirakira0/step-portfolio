@@ -52,7 +52,7 @@ function deleteComment(comment) {
 async function getCommentList() {
   try {
     const response = await fetch('/list-comments');
-    const listOfComments = await response.json();
+    const listOfComments = response.json();
     const commentsContainer = document.getElementById('comment-display');
     commentsContainer.textContent = ''; 
     listOfComments.forEach((comment) => {
