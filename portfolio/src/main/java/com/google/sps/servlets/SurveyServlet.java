@@ -36,7 +36,7 @@ public class SurveyServlet extends HttpServlet {
  * Return the results of the survey 
  */ 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {   
+  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {       
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn() && !surveyParticipants.contains(userService.getCurrentUser().getEmail())) {
       Query query = new Query("Vote"); // get all of the vote entities
@@ -49,11 +49,13 @@ public class SurveyServlet extends HttpServlet {
         int currentVotes = subgenreToVotes.containsKey(subgenre) ? subgenreToVotes.get(subgenre) : 0;
         subgenreToVotes.put(subgenre, currentVotes + 1); 
       }
+      response.setContentType("application/json");
+      Gson gson = new Gson(); 
+      String json = gson.toJson(subgenreToVotes);
+      response.getWriter().println(json); 
+    } else {
+      response.sendError(401, "Unauthorized access"); 
     }
-    response.setContentType("application/json");
-    Gson gson = new Gson(); 
-    String json = gson.toJson(subgenreToVotes);
-    response.getWriter().println(json); 
   }
 
 /*
